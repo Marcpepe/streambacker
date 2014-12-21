@@ -1,0 +1,15 @@
+---
+- name: create app directory
+  file: path={{app.path}} state=directory mode=0777
+
+- name: set nginx server (conf)
+  template: src=etc/nginx/conf.d/conf dest=/etc/nginx/conf.d/{{app.name}}.conf
+  notify: reload-nginx
+
+- name: set nginx location (subconf)
+  template: src=etc/nginx/conf.d/subconf dest=/etc/nginx/conf.d/{{app.name}}.subconf
+  notify: reload-nginx
+
+- name: avoid cache
+  lineinfile: dest=/etc/nginx/nginx.conf line="    sendfile        on;" state=absent
+  notify: reload-nginx
