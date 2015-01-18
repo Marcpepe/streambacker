@@ -1,0 +1,5 @@
+---
+- name: install git (needed for bower)
+  apt: name=git state=latest
+  tags:
+  - packages

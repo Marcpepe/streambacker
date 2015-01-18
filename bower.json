@@ -1,0 +1,13 @@
+{
+  "name": "streambacker-client",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "angular": "~1.3.9"
+  }
+}

@@ -1,5 +1,5 @@
 ---
-- hosts: sgdir
+- hosts: streambacker-client
   sudo: yes
   gather_facts: true
   roles:
