@@ -1,5 +1,0 @@
-[nginx]
-name=NGINX Repository
-baseurl={{ nginx_repo }}
-gpgcheck=0
-enabled=1

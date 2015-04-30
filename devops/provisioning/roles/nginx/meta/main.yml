@@ -1,5 +1,0 @@
----
-dependencies:
- - { role: app-user-paths }
- - { role: logrotate }
- - { role: fail2ban, when: app_group == 'tnus' }

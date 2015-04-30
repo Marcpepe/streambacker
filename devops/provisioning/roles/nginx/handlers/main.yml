@@ -1,6 +1,0 @@
----
-- name: restart nginx
-  command: '{{ init_path }}/nginx restart'
-
-- name: reload nginx
-  command: '{{ init_path }}/nginx reload'
