@@ -8,4 +8,6 @@
 ###
 
 angular.module '%module%', [
+  'ngMaterial',
+  '%module%.profile'
 ]

@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "angular": "*",
+    "angular-material": "*",
+    "angular-ui-router": "*",
     "font-awesome": "*",
     "d3": "~3.4.13"
   },
