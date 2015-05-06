@@ -1,0 +1,27 @@
+doctype html
+html(lang="en", ng-app="%module%")
+  head
+    title First page stbk
+    meta(charset="utf-8")
+    link(rel="icon", type="image/x-icon", href="/favicon.ico")
+    link(rel="stylesheet", href="/%styles%/vendor.css")
+  body(
+    layout="column"
+    layout-fill
+  )
+    md-toolbar.md-warn
+      .md-toolbar-tools
+        span
+          | My tooolbar
+        span(flex)
+        md-button Right bar button
+    base(ui-view)
+
+    md-content(layout-padding)
+      | This is the MAIN PAGE
+      br
+      a(ui-sref="profile")
+        | My profile
+
+    script(src="/%scripts%/vendor.js")
+    script(src="/%scripts%/app.js")

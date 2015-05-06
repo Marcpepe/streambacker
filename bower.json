@@ -1,13 +1,13 @@
 {
   "name": "streambacker",
   "version": "0.0.1",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components"
-  ],
   "dependencies": {
-    "bootstrap": "~3.3.1",
-    "angular": "~1.3.9"
+    "angular": "*",
+    "angular-material": "*",
+    "angular-ui-router": "*",
+    "font-awesome": "*",
+    "d3": "~3.4.13"
+  },
+  "devDependencies": {
   }
 }
