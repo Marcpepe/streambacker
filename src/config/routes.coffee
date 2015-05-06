@@ -1,4 +1,4 @@
 angular.module '%module%'
-  .config ($routeProvider) ->
+.config ($routeProvider) ->
     $routeProvider.otherwise
-      redirectTo: '/profile'
+      redirectTo: '/'
