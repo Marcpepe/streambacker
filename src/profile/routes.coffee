@@ -1,7 +1,6 @@
 angular.module '%module%.profile'
-.config ($stateProvider) ->
-  $stateProvider
-  .state 'profile',
-    url: '/profile'
+.config ($routeProvider) ->
+  $routeProvider
+    .when '/profile',
     templateUrl: 'profile/view.html'
     controller: 'ProfileController'
