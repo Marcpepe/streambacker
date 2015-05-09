@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.2"
+  },
+  "applications": {
+    "Streambacker": {
+      "applicationId": "FjV0J1GNH4gNUjwPOPREt5vPmxrn3Ht6vyLaaQ1R",
+      "masterKey": "fUlVxCnrQS1azEfaFTPXY2cmnLfxQ9uOZlP2pQWp"
+    },
+    "_default": {
+      "link": "Streambacker"
+    }
+  }
+}
