@@ -1,2 +1,7 @@
-| This is the MY MAIN page.
-| My favorite streamer is {{ name }}
+h3 Welcome to Streambacker
+
+h4 List of top streamers
+ul
+  li(ng-repeat="streamer in streamers")
+    a(href="/#/profile/{{ streamer.id }}")
+      | {{ streamer.name }}

@@ -1,4 +1,4 @@
 angular.module '%module%.profile'
-  .controller 'ProfileController', ($scope) ->
+  .controller 'ProfileController', ($scope, $routeParams) ->
     console.log "profile!"
-    $scope.name = 'Trump'
+    $scope.id = $routeParams.id

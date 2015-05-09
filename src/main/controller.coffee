@@ -1,4 +1,13 @@
 angular.module '%module%.main'
   .controller 'MainController', ($scope) ->
     console.log "main!"
-    $scope.name = 'Kolento'
+    $scope.streamers = [
+        "id"   : 1
+        "name" : "Kolento"
+      ,
+        "id"   : 2
+        "name" : "Trump"
+      ,
+        "id"   : 3
+        "name" : "Sodapoppin"
+    ]
