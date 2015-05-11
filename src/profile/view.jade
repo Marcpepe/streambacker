@@ -1,1 +1,6 @@
-h4 You are on a streamer page of id : {{ id }}
+h4 You are now on a streamer page of id : {{ id }}
+br
+span(ng-repeat="sample in data['result']")
+  | Game: {{ sample.game }}
+  br
+  | Viewers: {{ sample['viewers'] }}
