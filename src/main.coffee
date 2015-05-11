@@ -8,6 +8,8 @@
 ###
 
 angular.module '%module%', [
-  'ngMaterial',
+  'ngMaterial'
+  'ngRoute'
+  '%module%.main'
   '%module%.profile'
 ]

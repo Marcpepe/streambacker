@@ -1,4 +1,4 @@
 angular.module '%module%.profile', [
-  'ng'
-  'ui.router'
+  'ngRoute'
+  'ngResource'
 ]

@@ -4,7 +4,8 @@
   "dependencies": {
     "angular": "*",
     "angular-material": "*",
-    "angular-ui-router": "*",
+    "angular-resource": "*",
+    "angular-route": "*",
     "font-awesome": "*",
     "d3": "~3.4.13"
   },

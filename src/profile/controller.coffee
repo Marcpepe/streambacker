@@ -1,3 +1,4 @@
 angular.module '%module%.profile'
-  .controller 'ProfileController', ($scope) ->
-    $scope.name = 'Trump'
+  .controller 'ProfileController', ($scope, $routeParams, TwitchData) ->
+    $scope.id = $routeParams.id
+    $scope.data = TwitchData.getLirik()
