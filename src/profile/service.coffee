@@ -1,6 +1,6 @@
 angular.module '%module%.profile'
 .factory 'TwitchData', ($resource) ->
-  $resource 'https://api.parse.com/1/functions/getTwitchData', {},
+  $resource 'https://api.parse.com/1/functions/getTwitchData/:name', {'name':'phantoml0rd'},
     getLirik:
       method: 'POST'
       headers:
@@ -8,5 +8,14 @@ angular.module '%module%.profile'
         'X-Parse-REST-API-Key': 'Tr7Sipvulj7XDT2jx5DpvqwV0nLeEC9BnfIGgpvm'
       params:
         name: 'lirik' 
+      body:
+        name: 'sodapoppin'
+        params:
+          name: 'riotgames'
+      data:
+        params:
+          name: 'imaqtpie'
+        name:
+          'kolento'
       # isArray: true
       # withCredentials: true
