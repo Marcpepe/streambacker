@@ -124,10 +124,10 @@ Parse.Cloud.job("twitchData", function(request, status) {
 
             streamStamp.save(null, {
               success: function(streamStamp) {
-                status.message("Saving stream data..");
+                status.message("Saving streamstamp..");
               },
               error: function(streamStamp, error) {
-                status.error("Stream data was not saved.");
+                status.error("Streamstamp data was not saved.");
               }
             });
           }
@@ -136,31 +136,6 @@ Parse.Cloud.job("twitchData", function(request, status) {
           }
         });
 
-      }
-
-
-
-
-      console.log('Http request successful : '+httpResponse.text);
-      var stream_data = res.data["streams"]
-      for (var i = 0; i < stream_data.length; i++) {
-        var streamData = new StreamData();
-        // Stream
-        streamData.set('viewers', stream_data[i].viewers);
-        streamData.set('status', stream_data[i].channel.status);
-        // Streamer
-        streamData.set('name', stream_data[i].channel.name);
-        // Game
-        streamData.set('game', stream_data[i].game);
-
-        streamData.save(null, {
-          success: function(streamData) {
-            status.message("Saving stream data..");
-          },
-          error: function(streamData, error) {
-            status.error("Stream data was not saved.");
-          }
-        });
       }
       if (stream_data.length == 0) {
         status.success("Apparently there was no streamer online..");
