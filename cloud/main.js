@@ -1,4 +1,4 @@
-Parse.Cloud.job("twitchData", function(request, status) {
+Parse.Cloud.job("twitchDataOld", function(request, status) {
   // Parse.Cloud.useMasterKey();
   var StreamData = Parse.Object.extend("StreamData");
   Parse.Cloud.httpRequest({
@@ -40,7 +40,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
   });
 });
 
-Parse.Cloud.job("twitchDataNew", function(request, status) {
+Parse.Cloud.job("twitchData", function(request, status) {
   // Streamer list
   var streamers = 'imaqtpie,phantoml0rd,sodapoppin,lirik,riotgames,kolento,trumpsc'
 
