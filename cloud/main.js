@@ -42,7 +42,7 @@ Parse.Cloud.job("twitchDataOld", function(request, status) {
 
 Parse.Cloud.job("twitchData", function(request, status) {
   // Streamer list
-  var streamers = 'imaqtpie,phantoml0rd,sodapoppin,lirik,riotgames,kolento,trumpsc'
+  var streamers = 'imaqtpie,phantoml0rd,sodapoppin,lirik,riotgames,kolento,trumpsc';
 
   // Parse.Cloud.useMasterKey();
   var Recording = Parse.Object.extend("Recording");
@@ -70,7 +70,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
       // if game exists, check if maxViewerCount/maxChannelsCount (and logo, etc) need update; else create
       var game_query = new Parse.Query(Game);
       game_query.equalTo('twitchId', game_data[i].game._id);
-      query.find({
+      game_query.find({
         success: function(results) {
           console.log('Checking results..');
           if (results.length > 0) {
@@ -91,7 +91,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
             game.set('maxChannels', game_data[i].channels);
             game.set('box', game_data[i].game.box.medium);
           }
-        }
+        },
         error: function(error) {
           console.log('Maybe game should be created here, that is if error means results.length is 0')
         }
@@ -106,7 +106,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
 
       gameStamp.save();
     }
-    console.log "Requesting data for streamers : ", streamers
+    console.log("Requesting data for streamers : "+streamers);
     Parse.Cloud.httpRequest({
       url: 'https://api.twitch.tv/kraken/streams',
       params: {
@@ -125,7 +125,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
         var channel = new Channel();
         var channel_query = new Parse.Query(Channel);
         channel_query.equalTo('twitchId', stream_data[i].game._id);
-        query.find({
+        channel_query.find({
           success: function(results) {
             console.log('Checking channel results..');
             if (results.length > 0) {
@@ -167,7 +167,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
                 status.error("Streamstamp data was not saved.");
               }
             });
-          }
+          },
           error: function(error) {
             console.log('Maybe game should be created here, that is if error means results.length is 0')
           }
@@ -175,18 +175,18 @@ Parse.Cloud.job("twitchData", function(request, status) {
 
       }
       if (stream_data.length == 0) {
-        status.success("Apparently there was no streamer online..");
+        status.message("Apparently there was no streamer online..");
       } else {
-        status.success("Stream data was saved successfully.");
+        status.message("Stream data was saved successfully.");
       }
     }, function(res) {
       console.error('Arf.. Streams request failed with response code ' + res.status);
     });
+    status.success("Game and Stream info saved successfully.")
   }, function(httpResponse) {
     console.error('Arf.. Games request failed with response code ' + httpResponse.status);
   });
 
-  status.success("Games saved and updated successfully");
 
 });
 
