@@ -55,6 +55,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
   // Instances
   var recording;
   var gameStamps;
+  var game_data;
 
 
   Parse.Cloud.httpRequest({
@@ -66,68 +67,174 @@ Parse.Cloud.job("twitchData", function(request, status) {
     }
   }).then(function(httpResponse) {
     console.log('Games http request successful : '+httpResponse.text);
-    var game_data = httpResponse.data["top"];
-    var recording = new Recording();
-    var gameStamps = {}
-    for (var i = 0; i < game_data.length; i++) {
-      // (function(i) {
-        if (i<5) {
-          console.log('Creating game record : '+game_data[i].game.name);
+    game_data = httpResponse.data["top"];
+    recording = new Recording();
+    gameStamps = {}
+    // TODO if game exists, check if maxViewerCount/maxChannelsCount (and logo, etc) need update; else create
+
+    
+    // game = new Game();
+    // game.set('name', game_data[0].game.name);
+    // game.set('twitchId', game_data[0].game._id);
+    // game.set('maxViewers', game_data[0].viewers);
+    // game.set('maxChannels', game_data[0].channels);
+    // game.set('box', game_data[0].game.box.medium);
+
+    // return game.save();
+
+
+
+    var game_query = new Parse.Query(Game);
+    console.log('game_query before : '+JSON.stringify(game_query))
+    game_query.equalTo('twitchId', game_data[0].game._id);
+    console.log('game_query after : '+JSON.stringify(game_query))
+    return game_query.find({
+      success: function(results) {
+        console.log('Checking results..'+JSON.stringify(results));
+        if (results.length > 0) {
+          var game = results[0];
+          console.log('Game already created of id : '+game.objectId);
+          if (game.get('maxViewers') < game_data[0].viewers) {
+            game.set('maxViewers', game_data[0].viewers);
+          }
+          if (game.get('maxChannels') < game_data[0].channels) {
+            game.set('maxChannels', game_data[0].channels);
+          }
+
+        } else {
+          console.log('Game needs to be created');
+          var game = new Game();
+          game.set('name', game_data[0].game.name);
+          game.set('twitchId', game_data[0].game._id);
+          game.set('maxViewers', game_data[0].viewers);
+          game.set('maxChannels', game_data[0].channels);
+          game.set('box', game_data[0].game.box.medium);
         }
-        var game = new Game();
-        // if game exists, check if maxViewerCount/maxChannelsCount (and logo, etc) need update; else create
-        var game_query = new Parse.Query(Game);
-        game_query.equalTo('twitchId', game_data[i].game._id);
-        game_query.find().then(function(results) {
-          console.log('Checking results..');
-          if (results.length > 0) {
-            console.log('Game already created');
-            game = results[0];
-            if (results[0].get('maxViewers') < game_data[i].viewers) {
-              game.set('maxViewers', game_data[i].viewers);
-            }
-            if (results[0].get('maxChannels') < game_data[i].channels) {
-              game.set('maxChannels', game_data[i].channels);
-            }
+        console.log('game before : '+JSON.stringify(game))
+          
+        // create gamestamp and attach to game and recording
+        var gameStamp = new GameStamp();
+        gameStamp.set('viewers', game_data[0].viewers);
+        gameStamp.set('channels', game_data[0].channels);
+        gameStamp.set('game', game);
+        gameStamp.set('recording', recording);
+        gameStamps[game.name] = gameStamp;
 
-          } else {
-            console.log('Game needs to be created');
-            console.log('my gam_data : '+JSON.stringify(game_data));
-            console.log('i vaut : '+i);
-            console.log('game_data[i] : '+game_data[i]);
-            game.set('name', game_data[i].game.name);
-            game.set('twitchId', game_data[i].game._id);
-            game.set('maxViewers', game_data[i].viewers);
-            game.set('maxChannels', game_data[i].channels);
-            game.set('box', game_data[i].game.box.medium);
-          }
-        
-          // create gamestamp and attach to game and recording
-          var gameStamp = new GameStamp();
-          gameStamp.set('viewers', game_data[i].viewers);
-          gameStamp.set('channels', game_data[i].channels);
-          gameStamp.set('game', game);
-          gameStamp.set('recording', recording);
-          gameStamps[game.name] = gameStamp;
+        console.log('Saving..');
+        return gameStamp.save();
+      },
+      error: function(error) {
+        console.log('Maybe game should be created here, that is if error means results.length is 0');
+        console.error('error eeere');
+        status.error("Streamstamp222 data was not saved.");
+      }
 
-          console.log('Saving..');
-          gameStamp.save();
-
-
-          }, function(error) {
-            console.log('Maybe game should be created here, that is if error means results.length is 0');
-            console.error('error eeere');
-            status.error("Streamstamp222 data was not saved.");
-          }
-
-        );
+    });
 
 
 
-      // });
-      console.log(Object.keys(gameStamps)==100);
-      return Object.keys(gameStamps)==100;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // }).then(function(game) {
+    // console.log('game is : '+JSON.stringify(game))
+
+    // // create gamestamp and attach to game and recording
+    // var gameStamp = new GameStamp();
+    // gameStamp.set('viewers', game_data[0].viewers);
+    // gameStamp.set('channels', game_data[0].channels);
+    // gameStamp.set('game', game);
+    // gameStamp.set('recording', recording);
+    // gameStamps[game.name] = gameStamp;
+
+    // console.log('Saviing..');
+    // return gameStamp.save();
+
+
+
+
+
+
+
+
+
+
+
+    // for (var i = 0; i < game_data.length; i++) {
+    // // for (var i = 0; i < 1; i++) {
+      // // (function(i) {
+        // if (i<5) {
+          // console.log('Creating game record : '+game_data[i].game.name);
+        // }
+        // var game = new Game();
+        // // if game exists, check if maxViewerCount/maxChannelsCount (and logo, etc) need update; else create
+        // var game_query = new Parse.Query(Game);
+        // game_query.equalTo('twitchId', game_data[i].game._id);
+        // game_query.find({
+          // success: function(results) {
+            // console.log('Checking results..'+JSON.stringify(results));
+            // if (results.length > 0) {
+              // console.log('Game already created');
+              // game = results[0];
+              // if (results[0].get('maxViewers') < game_data[i].viewers) {
+                // game.set('maxViewers', game_data[i].viewers);
+              // }
+              // if (results[0].get('maxChannels') < game_data[i].channels) {
+                // game.set('maxChannels', game_data[i].channels);
+              // }
+
+            // } else {
+              // console.log('Game needs to be created');
+              // console.log('my gam_data : '+JSON.stringify(game_data));
+              // console.log('i vaut : '+i);
+              // console.log('game_data[i] : '+game_data[i]);
+              // game.set('name', game_data[i].game.name);
+              // game.set('twitchId', game_data[i].game._id);
+              // game.set('maxViewers', game_data[i].viewers);
+              // game.set('maxChannels', game_data[i].channels);
+              // game.set('box', game_data[i].game.box.medium);
+            // }
+          
+            // // create gamestamp and attach to game and recording
+            // var gameStamp = new GameStamp();
+            // gameStamp.set('viewers', game_data[i].viewers);
+            // gameStamp.set('channels', game_data[i].channels);
+            // gameStamp.set('game', game);
+            // gameStamp.set('recording', recording);
+            // gameStamps[game.name] = gameStamp;
+
+            // console.log('Saving..');
+            // return gameStamp.save();
+
+
+          // },
+          // error: function(error) {
+            // console.log('Maybe game should be created here, that is if error means results.length is 0');
+            // console.error('error eeere');
+            // status.error("Streamstamp222 data was not saved.");
+          // }
+
+        // });
+
+
+
+      // // });
+      // // console.log(Object.keys(gameStamps)==100);
+      // // return Object.keys(gameStamps)==100;
+    // }
+
+
+
   // }).then(function() {
     // console.log("Requesting data for streamers : "+streamers);
     // Parse.Cloud.httpRequest({
@@ -202,8 +309,14 @@ Parse.Cloud.job("twitchData", function(request, status) {
     // });
     // console.log("Stop 3");
     // status.message("Stop 3");
-  }).then(function() {
-      status.success('SuCcess!');
+
+
+
+  }).then(function(result) {
+    console.log('resultt : '+result)
+    if (result) {
+      status.success('SuccESs!');
+    }
   }, function(error) {
       console.error('ARF, error was : '+error);
       status.error('ERROR, there was an error!')
