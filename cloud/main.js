@@ -53,10 +53,11 @@ Parse.Cloud.job("twitchData", function(request, status) {
   var Stream = Parse.Object.extend("Stream");
   var StreamStamp = Parse.Object.extend("StreamStamp");
   // Instances
+  var game_data;
   var recording;
   var gameStamps;
-  var game_data;
-
+  var gameArray = [];
+  var gameStampArray = [];
 
   Parse.Cloud.httpRequest({
     url: 'https://api.twitch.tv/kraken/games/top?limit=100&offset=0',
@@ -70,15 +71,12 @@ Parse.Cloud.job("twitchData", function(request, status) {
     game_data = httpResponse.data["top"];
     recording = new Recording();
     gameStamps = {}
-    // TODO if game exists, check if maxViewerCount/maxChannelsCount (and logo, etc) need update; else create
 
     var promises = [];
     for (var i = 0; i < game_data.length; i++) {
-    // for (var i = 0; i < 1; i++) {
+      gameArray[i] = new Game();
+      gameStampArray[i] = new GameStamp();
       (function(i) {
-        if (i<5) {
-          console.log('Creating game record : '+game_data[i].game.name);
-        }
         // if game exists, check if maxViewerCount/maxChannelsCount (and logo, etc) need update; else create
         var game_query = new Parse.Query(Game);
         game_query.equalTo('twitchId', game_data[i].game._id);
@@ -89,42 +87,41 @@ Parse.Cloud.job("twitchData", function(request, status) {
               console.log('Checking results (i='+i+')..'+JSON.stringify(results));
               if (results.length > 0) {
                 console.log('Game already created');
-                var game = results[0];
+                gameArray[i] = results[0];
                 if (results[0].get('maxViewers') < game_data[i].viewers) {
-                  game.set('maxViewers', game_data[i].viewers);
+                  gameArray[i].set('maxViewers', game_data[i].viewers);
                   console.log('Updated maxViewers!')
                 } else {
                   console.log('maxViewers not reached..')
                 }
                 if (results[0].get('maxChannels') < game_data[i].channels) {
-                  game.set('maxChannels', game_data[i].channels);
+                  gameArray[i].set('maxChannels', game_data[i].channels);
                   console.log('Updated maxChannels!')
                 } else {
                   console.log('maxChannels not reached..')
                 }
 
               } else {
-                var game = new Game();
+                game = new Game();
                 console.log('Game needs to be created');
                 console.log('i vaut : '+i);
-                console.log('game_data[i] : '+game_data[i]);
-                game.set('name', game_data[i].game.name);
-                game.set('twitchId', game_data[i].game._id);
-                game.set('maxViewers', game_data[i].viewers);
-                game.set('maxChannels', game_data[i].channels);
-                game.set('box', game_data[i].game.box.medium);
+                console.log('game_data[i] : '+JSON.stringify(game_data[i]));
+                gameArray[i].set('name', game_data[i].game.name);
+                gameArray[i].set('twitchId', game_data[i].game._id);
+                gameArray[i].set('maxViewers', game_data[i].viewers);
+                gameArray[i].set('maxChannels', game_data[i].channels);
+                gameArray[i].set('box', game_data[i].game.box.medium);
               }
 
               // create gamestamp and attach to game and recording
-              var gameStamp = new GameStamp();
-              gameStamp.set('viewers', game_data[i].viewers);
-              gameStamp.set('channels', game_data[i].channels);
-              gameStamp.set('game', game);
-              gameStamp.set('recording', recording);
-              gameStamps[game.name] = gameStamp;
+              gameStampArray[i].set('viewers', game_data[i].viewers);
+              gameStampArray[i].set('channels', game_data[i].channels);
+              gameStampArray[i].set('game', gameArray[i]);
+              gameStampArray[i].set('recording', recording);
+              gameStamps[gameArray[i].name] = gameStampArray[i];
 
               console.log('Saving.. (i='+i+')');
-              gameStamp.save();
+              gameStampArray[i].save();
             },
             error: function(error) {
               console.log('Maybe game should be created here, that is if error means results.length is 0');
