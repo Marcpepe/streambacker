@@ -82,8 +82,8 @@ Parse.Cloud.job("twitchData", function(request, status) {
         game_query.equalTo('twitchId', game_data[i].game._id);
 
         promises.push(
-          game_query.find({
-            success: function(results) {
+          game_query.find().then(
+            function(results) {
               // console.log('Checking results (i='+i+')..'+JSON.stringify(results));
               if (results.length > 0) {
                 // console.log('Game already created');
@@ -133,12 +133,11 @@ Parse.Cloud.job("twitchData", function(request, status) {
               });
               // gameArray[i].save();
             },
-            error: function(error) {
+            function(error) {
               console.error(error);
               status.error("Error...:x");
             }
-
-          })
+          )
         );
       })(i);
     }
