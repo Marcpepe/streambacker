@@ -4,4 +4,4 @@ h4 List of top streamers
 ul
   li(ng-repeat="channel in channels['results']")
     a(href="/#/profile/{{ channel.twitchId }}")
-      | {{ channel.name }}
+      | {{ channel.display_name }}

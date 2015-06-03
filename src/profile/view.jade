@@ -1,11 +1,4 @@
-h4 You are now on a streamer page of id : {{ id }}
-br
-span(ng-repeat="sample in data['result']")
-  h5 {{ sample.name }}
-  | Time: {{ sample.createdAt }}
-  br
-  | Game: {{ sample.game }}
-  br
-  | Viewers: {{ sample.viewers }}
-  br
-  br
+h4 {{ channel.display_name}}
+
+p
+  | Max viewers : {{ channel.maxViewers}}
