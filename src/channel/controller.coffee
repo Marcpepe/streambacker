@@ -1,5 +1,5 @@
 angular.module '%module%.channel'
-  .controller 'ProfileController', ($scope, $routeParams, $http) ->
+  .controller 'ChannelController', ($scope, $routeParams, $http) ->
     $scope.twitchId = parseInt $routeParams.twitchId
     $http.get 'https://api.parse.com/1/classes/Channel'
       ,
