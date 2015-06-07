@@ -11,5 +11,5 @@ angular.module '%module%', [
   'ngMaterial'
   'ngRoute'
   '%module%.main'
-  '%module%.profile'
+  '%module%.channel'
 ]

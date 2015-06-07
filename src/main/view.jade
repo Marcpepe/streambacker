@@ -3,5 +3,5 @@ h3 Welcome to Streambacker
 h4 List of top streamers
 ul
   li(ng-repeat="channel in channels['results']")
-    a(href="/#/profile/{{ channel.twitchId }}")
+    a(href="/#/channel/{{ channel.twitchId }}")
       | {{ channel.display_name }}

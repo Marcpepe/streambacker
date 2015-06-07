@@ -1,4 +1,4 @@
-angular.module '%module%.profile'
+angular.module '%module%.channel'
 .factory 'TwitchData', ($resource) ->
   # $resource 'https://api.parse.com/1/classes/StreamData', {},
     # getLirik:
