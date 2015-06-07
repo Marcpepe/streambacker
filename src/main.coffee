@@ -12,4 +12,5 @@ angular.module '%module%', [
   'ngRoute'
   '%module%.main'
   '%module%.channel'
+  '%module%.game'
 ]
