@@ -1,6 +1,10 @@
 {
   "name": "streambacker",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Marcpepe/streambacker.git"
+  },
   "scripts": {
     "postinstall": "bower install && gulp build",
     "start": "gulp watch",
