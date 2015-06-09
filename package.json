@@ -12,7 +12,7 @@
     "start:server": "node_modules/.bin/coffee server.coffee & node_modules/.bin/coffee server/notsoshitty-server.coffee",
     "test": "karma start test/karma-unit.coffee --single-run",
     "test:unit": "karma start test/karma-unit.coffee",
-    "test:functional": "webdriver-manager update && protractor --require coffee-script/register test/protractor.conf.coffee",
+    "test:functional": "node_modules/.bin/protractor --require coffee-script/register test/protractor.conf.coffee",
     "docs": "gulp docs"
   },
   "dependencies": {
@@ -37,6 +37,10 @@
     "serve-static": "^1.7.1"
   },
   "devDependencies": {
-    "main-bower-files": "^2.1.0"
+    "chai": "^3.0.0",
+    "cucumber": "^0.5.0",
+    "lodash": "^3.9.3",
+    "main-bower-files": "^2.1.0",
+    "protractor": "^2.1.0"
   }
 }
