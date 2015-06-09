@@ -1,5 +1,5 @@
-angular.module '%module%.channel'
-.factory 'Twitch', ($resource) ->
+angular.module '%module%.main'
+.factory 'twitchMain', ($resource) ->
   $resource 'https://api.parse.com/1/', {},
     getChannels:
       method: 'GET'
