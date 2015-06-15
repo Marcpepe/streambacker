@@ -3,3 +3,6 @@ angular.module '%module%.channel'
   $routeProvider.when '/game/:twitchId',
     templateUrl: 'game/view.html'
     controller: 'GameController'
+    resolve:
+      gameStamps: (twitchGame) ->
+        return twitchGame.getGameStamps().$promise

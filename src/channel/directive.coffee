@@ -1,6 +1,6 @@
 angular.module '%module%.channel'
   .directive 'channelViews', ->
-    controller: 'ChannelController'
+    # controller: 'ChannelController'
     link: ($scope) ->
       console.log 'my data : ', $scope.streamStamps
       svg = d3.select '#channel-views-chart'
