@@ -7,7 +7,7 @@
     "angular-resource": "*",
     "angular-route": "*",
     "font-awesome": "*",
-    "d3": "~3.4.13"
+    "d3": "~3.5.5"
   },
   "devDependencies": {
   }
