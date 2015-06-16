@@ -5,6 +5,8 @@ angular.module '%module%.channel'
       method: 'GET'
       url: 'https://api.parse.com/1/classes/StreamStamp'
       params:
+        skip: 100
+        limit: 300
         include: 'channel'
         where:
           channel:
