@@ -172,7 +172,30 @@ Parse.Cloud.job("twitchData", function(request, status) {
                   // if (results[0].get('maxTraffic') < stream_data[i].channels) {
                     // game.set('maxChannels', stream_data[i].channels);
                   // }
-
+                  var stream_query = new Parse.Query(Stream);
+                  stream_query.equalTo('twitchId', stream_data[i]._id);
+                  return stream_query.find().then(
+                    function(res) {
+                      if (res.length > 0) {
+                        console.log('Stream already exists');
+                        var stream = res[0];
+                        stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
+                      } else {
+                        console.log('Stream did not exist')
+                        var stream = new Stream();
+                        stream.set('twitchId', stream_data[i]._id);
+                        stream.set('creationStamp', new Date(stream_data[i].created_at));
+                        stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
+                        stream.set('channel', channel);
+                      }
+                      var streamStamp = new StreamStamp();
+                      streamStamp.set('viewers', stream_data[i].viewers);
+                      streamStamp.set('status', stream_data[i].channel.status);
+                      streamStamp.set('game', gameStamps[stream_data[i].game]);
+                      streamStamp.set('stream', stream);
+                      return streamStamp.save();
+                    }
+                  )
                 } else {
                   console.log('Channel needs to be created');
                   var channel = new Channel();
@@ -184,17 +207,18 @@ Parse.Cloud.job("twitchData", function(request, status) {
                   channel.set('views', stream_data[i].channel.views);
                   channel.set('followers', stream_data[i].channel.followers);
                   // TODO: add partner, language, broadcaster_language, etc..
+                  var stream = new Stream();
+                  stream.set('twitchId', stream_data[i]._id);
+                  stream.set('channel', channel);
+                  var streamStamp = new StreamStamp();
+                  streamStamp.set('viewers', stream_data[i].viewers);
+                  streamStamp.set('status', stream_data[i].channel.status);
+                  streamStamp.set('game', gameStamps[stream_data[i].game]);
+                  streamStamp.set('stream', stream);
+                  return streamStamp.save();
                 }
-                var streamStamp = new StreamStamp();
-                streamStamp.set('viewers', stream_data[i].viewers);
-                streamStamp.set('status', stream_data[i].channel.status);
-                streamStamp.set('channel', channel);
-                streamStamp.set('game', gameStamps[stream_data[i].game]);
-
-                return streamStamp.save();
               }, function(error) {
-                  console.log('Maybe game should be created here, that is if error means results.length is 0');
-                  console.log('Errore is : '+error);
+                  console.log('There was an error in channel query : '+error);
               }
             )
           );
