@@ -85,15 +85,13 @@ Parse.Cloud.job("twitchData", function(request, status) {
                 game = results[0];
                 if (game.get('maxViewers') < game_data[i].viewers) {
                   game.set('maxViewers', game_data[i].viewers);
-                  // console.log('Updated maxViewers!')
-                } else {
-                  // console.log('maxViewers not reached..')
+                  console.log('Updated maxViewers!')
+                  game.set('maxViewersStamp', new Date());
                 }
                 if (game.get('maxChannels') < game_data[i].channels) {
                   game.set('maxChannels', game_data[i].channels);
-                  // console.log('Updated maxChannels!')
-                } else {
-                  // console.log('maxChannels not reached..')
+                  console.log('Updated maxChannels!')
+                  game.set('maxChannelsStamp', new Date());
                 }
 
               } else {
@@ -102,7 +100,9 @@ Parse.Cloud.job("twitchData", function(request, status) {
                 game.set('name', game_data[i].game.name);
                 game.set('twitchId', game_data[i].game._id);
                 game.set('maxViewers', game_data[i].viewers);
+                game.set('maxViewersStamp', new Date());
                 game.set('maxChannels', game_data[i].channels);
+                game.set('maxChannelsStamp', new Date());
                 game.set('box', game_data[i].game.box.medium);
               }
 
@@ -115,15 +115,6 @@ Parse.Cloud.job("twitchData", function(request, status) {
               gameStamps[game.name] = gameStamp;
 
               return gameStamp.save();
-              // return gameStamp.save(null, {
-                // success: function() {
-                  // console.log('gameStampSaved')
-                // },
-                // error: function(error) {
-                  // console.log('there was an error while saving gameStamp : '+error)
-                // }
-              // });
-              // gameArray[i].save();
             },
             function(error) {
               console.error(error);
@@ -164,6 +155,16 @@ Parse.Cloud.job("twitchData", function(request, status) {
                   var channel = results[0];
                   if (results[0].get('maxViewers') < stream_data[i].viewers) {
                     channel.set('maxViewers', stream_data[i].viewers);
+                    console.log('maxViewersStamp updated!')
+                    channel.set('maxViewersStamp', new Date());
+                  }
+                  if (results[0].get('views') < stream_data[i].channel.views) {
+                    console.log('views updated!')
+                    channel.set('views', stream_data[i].channel.views);
+                  }
+                  if (results[0].get('followers') < stream_data[i].channel.followers) {
+                    console.log('followers updated!')
+                    channel.set('followers', stream_data[i].channel.followers);
                   }
                   // TODO: add maxViewerStamp
                   // TODO: traffic = viewers / total viewers in twitch for this game
@@ -171,7 +172,30 @@ Parse.Cloud.job("twitchData", function(request, status) {
                   // if (results[0].get('maxTraffic') < stream_data[i].channels) {
                     // game.set('maxChannels', stream_data[i].channels);
                   // }
-
+                  var stream_query = new Parse.Query(Stream);
+                  stream_query.equalTo('twitchId', stream_data[i]._id);
+                  return stream_query.find().then(
+                    function(res) {
+                      if (res.length > 0) {
+                        console.log('Stream already exists');
+                        var stream = res[0];
+                        stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
+                      } else {
+                        console.log('Stream did not exist')
+                        var stream = new Stream();
+                        stream.set('twitchId', stream_data[i]._id);
+                        stream.set('creationStamp', new Date(stream_data[i].created_at));
+                        stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
+                        stream.set('channel', channel);
+                      }
+                      var streamStamp = new StreamStamp();
+                      streamStamp.set('viewers', stream_data[i].viewers);
+                      streamStamp.set('status', stream_data[i].channel.status);
+                      streamStamp.set('game', gameStamps[stream_data[i].game]);
+                      streamStamp.set('stream', stream);
+                      return streamStamp.save();
+                    }
+                  )
                 } else {
                   console.log('Channel needs to be created');
                   var channel = new Channel();
@@ -179,20 +203,22 @@ Parse.Cloud.job("twitchData", function(request, status) {
                   channel.set('display_name', stream_data[i].channel.display_name);
                   channel.set('twitchId', stream_data[i].channel._id);
                   channel.set('maxViewers', stream_data[i].viewers);
+                  channel.set('maxViewersStamp', new Date());
                   channel.set('views', stream_data[i].channel.views);
                   channel.set('followers', stream_data[i].channel.followers);
                   // TODO: add partner, language, broadcaster_language, etc..
+                  var stream = new Stream();
+                  stream.set('twitchId', stream_data[i]._id);
+                  stream.set('channel', channel);
+                  var streamStamp = new StreamStamp();
+                  streamStamp.set('viewers', stream_data[i].viewers);
+                  streamStamp.set('status', stream_data[i].channel.status);
+                  streamStamp.set('game', gameStamps[stream_data[i].game]);
+                  streamStamp.set('stream', stream);
+                  return streamStamp.save();
                 }
-                var streamStamp = new StreamStamp();
-                streamStamp.set('viewers', stream_data[i].viewers);
-                streamStamp.set('status', stream_data[i].channel.status);
-                streamStamp.set('channel', channel);
-                streamStamp.set('game', gameStamps[stream_data[i].game]);
-
-                return streamStamp.save();
               }, function(error) {
-                  console.log('Maybe game should be created here, that is if error means results.length is 0');
-                  console.log('Errore is : '+error);
+                  console.log('There was an error in channel query : '+error);
               }
             )
           );

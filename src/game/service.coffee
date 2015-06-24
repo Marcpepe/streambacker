@@ -5,6 +5,9 @@ angular.module '%module%.channel'
       method: 'GET'
       url: 'https://api.parse.com/1/classes/GameStamp'
       params:
+        order: '-createdAt'
+        skip: 100
+        limit: 500
         include: 'game'
         where:
           game:

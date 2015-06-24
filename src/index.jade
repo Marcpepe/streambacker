@@ -8,21 +8,20 @@ html(lang="en", ng-app="%module%")
     link(rel="stylesheet", href="/%styles%/app.css")
   body(
     layout="column"
-    layout-fill
   )
     md-toolbar.md-warn
       .md-toolbar-tools
         span
-          | My tooolbar
+          a(href="/#/") Streambacker
         span(flex)
         md-button Right bar button
-    .stbk-main(ng-view)
 
-    md-content(layout-padding)
-      | Hellooo
-      br
-      span.stbk-color
-        | YOLO
+    .stbk-main(
+      ng-view
+      layout-padding
+    )
+
+    span.stbk-color(layout-padding) FOOTER
 
     script(src="/%scripts%/vendor.js")
     script(src="/%scripts%/app.js")

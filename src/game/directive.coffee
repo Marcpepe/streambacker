@@ -1,6 +1,5 @@
 angular.module '%module%.channel'
-  .directive 'channelViews', ->
-    # controller: 'ChannelController'
+  .directive 'gameViews', ->
     link: ($scope) ->
       margin =
         top: 20
@@ -32,7 +31,7 @@ angular.module '%module%.channel'
         .y (d) ->
           y d.viewers
 
-      svg = d3.select '#channel-views-chart'
+      svg = d3.select '#game-views-chart'
               .append 'svg'
               .attr 'width', width + margin.left + margin.right
               .attr 'height', height + margin.top + margin.bottom
@@ -40,7 +39,7 @@ angular.module '%module%.channel'
               .attr 'transform', 'translate(' + margin.left + ',' + margin.top + ')'
 
 
-      data = $scope.streamStamps
+      data = $scope.gameStamps
 
       data.forEach (d) ->
         d.createdAt = parseDate d.createdAt
