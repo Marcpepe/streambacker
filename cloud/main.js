@@ -142,8 +142,8 @@ Parse.Cloud.job("twitchData", function(request, status) {
                         console.log('Stream did not exist')
                         var stream = new Stream();
                         stream.set('twitchId', stream_data[i]._id);
-                        stream.set('creationStamp', new Date(stream_data[i].created_at));
-                        // stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
+                        stream.set('creationStamp', stream_data[i].created_at);
+                        stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
                         stream.set('channel', channel);
                       }
                       var streamStamp = new StreamStamp();
@@ -186,7 +186,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
     }).then(function() {
       status.success('Success!');
     }, function(error) {
-        console.error('ARF, error was : '+error);
+        console.error('ARF, error was : '+JSON.stringify(error));
         status.error('ERROR, there was an error!')
     });
   });
