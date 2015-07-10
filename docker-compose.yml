@@ -1,0 +1,19 @@
+# web:
+  # build: .
+  # ports:
+    # - '5000:5000'
+vendors:
+  image: node:0.10
+  working_dir: /mnt
+  volumes:
+    - .:/mnt
+  command: npm install --unsafe-perm
+  env_file: .env
+
+proxy:
+  image: nginx:1.7
+  ports:
+    - '5013:5013'
+  volumes:
+    - devops/proxy:/etc/nginx/conf.d
+    - www:/var/www
