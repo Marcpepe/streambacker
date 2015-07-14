@@ -7,8 +7,8 @@ vendors:
   working_dir: /mnt
   volumes:
     - .:/mnt
-  command: npm install --unsafe-perm
-  env_file: .env
+  command: npm install
+  # env_file: .env
 
 proxy:
   image: nginx:1.7

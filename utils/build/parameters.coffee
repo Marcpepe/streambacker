@@ -10,7 +10,7 @@ assetsPlaceholder = '%assets%'
 assetsFolder = 'assets'
 assetsPath = "#{srcPath}/#{assetsFolder}"
 
-wwwPath = 'public'
+wwwPath = 'www'
 scriptsPlaceholder = '%scripts%'
 scriptsFolder = 'scripts'
 scriptsPath = "#{wwwPath}/#{scriptsFolder}"
