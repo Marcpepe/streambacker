@@ -1,10 +1,20 @@
-express = require 'express'
+loopback = require('loopback')
+boot = require('loopback-boot')
+app = module.exports = loopback()
 
-PORT = '8080'
+app.start = ->
+  # start the web server
+  app.listen ->
+    app.emit 'started'
+    logger.technical.info 'Web server listening at: %s', app.get('url')
+    return
 
-app = express()
-app.get '/', (req, res) ->
-  res.send 'Hello, Marky'
-
-app.listen PORT
-console.log 'Runniing on http://localhost:'+PORT
+# Bootstrap the application, configure models, datasources and middleware.
+# Sub-apps like REST API are mounted via boot scripts.
+boot app, __dirname, (err) ->
+  if err
+    throw err
+  # start the server if `$ node server.js`
+  if require.main == module
+    app.start()
+  return

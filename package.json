@@ -39,7 +39,9 @@
     "gulp-sourcemaps": "*",
     "gulp-webserver": "*",
     "http-proxy": "^1.7.1",
-    "serve-static": "^1.7.1"
+    "serve-static": "^1.7.1",
+    "errorhandler": "~1.4.1",
+    "compression": "~1.5.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
