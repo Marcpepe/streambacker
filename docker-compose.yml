@@ -3,15 +3,14 @@
   # ports:
     # - '5000:5000'
 server: &defaults
+  # build: .
   image: node:0.10
   working_dir: /app
   volumes:
     - .:/app
-  # run: npm install
   command: ./node_modules/.bin/coffee server/server.coffee
   links:
     - mongo
-  # env_file: .env
 
 npm:
   <<: *defaults
