@@ -2,17 +2,20 @@
   # build: .
   # ports:
     # - '5000:5000'
-mongo:
-  image: mongo:latest
 vendors:
   image: node:0.10
-  working_dir: /mnt
+  working_dir: /app
   volumes:
-    - .:/mnt
+    - .:/app
   command: npm install
   links:
     - mongo
   # env_file: .env
+
+mongo:
+  image: mongo:latest
+  volumes:
+    - ./mongo:/data/db
 
 proxy:
   image: nginx:1.7

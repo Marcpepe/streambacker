@@ -5,7 +5,7 @@ bowerModule = require '../../bower.json'
 moduleName = bowerModule.name
 modulePlaceholder = '%module%'
 
-srcPath = 'src'
+srcPath = 'client'
 assetsPlaceholder = '%assets%'
 assetsFolder = 'assets'
 assetsPath = "#{srcPath}/#{assetsFolder}"
@@ -52,9 +52,5 @@ config =
       placeholder: modulePlaceholder
       # Include the replace in the streams where needed
       replacer: (replace) -> replace modulePlaceholder, moduleName
-
-  analytics:
-    id: 'UA-XXXXXXXX-X'
-    domain: 'doma.in'
 
 module.exports = config
