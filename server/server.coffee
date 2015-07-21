@@ -6,7 +6,7 @@ app.start = ->
   # start the web server
   app.listen ->
     app.emit 'started'
-    logger.technical.info 'Web server listening at: %s', app.get('url')
+    console.log 'Web server listening at: %s', app.get('url')
     return
 
 # Bootstrap the application, configure models, datasources and middleware.

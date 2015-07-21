@@ -2,15 +2,20 @@
   # build: .
   # ports:
     # - '5000:5000'
-vendors:
+server: &defaults
   image: node:0.10
   working_dir: /app
   volumes:
     - .:/app
-  command: npm install
+  # run: npm install
+  command: ./node_modules/.bin/coffee server/server.coffee
   links:
     - mongo
   # env_file: .env
+
+npm:
+  <<: *defaults
+  entrypoint: ['npm']
 
 mongo:
   image: mongo:latest

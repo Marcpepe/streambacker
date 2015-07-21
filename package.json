@@ -18,12 +18,10 @@
   "dependencies": {
     "bower": "*",
     "coffee-script": "*",
+    "compression": "~1.5.1",
+    "cors": "^2.7.1",
+    "errorhandler": "~1.4.1",
     "express": "^4.10.4",
-    "lodash": "^3.9.3",
-    "loopback": "^2.18.0",
-    "loopback-boot": "^2.8.0",
-    "loopback-connector-mongodb": "^1.9.2",
-    "loopback-datasource-juggler": "^2.29.2",
     "gulp": "*",
     "gulp-angular-templatecache": "*",
     "gulp-coffee": "*",
@@ -39,9 +37,12 @@
     "gulp-sourcemaps": "*",
     "gulp-webserver": "*",
     "http-proxy": "^1.7.1",
-    "serve-static": "^1.7.1",
-    "errorhandler": "~1.4.1",
-    "compression": "~1.5.1"
+    "lodash": "^3.9.3",
+    "loopback": "^2.18.0",
+    "loopback-boot": "^2.8.0",
+    "loopback-connector-mongodb": "^1.9.2",
+    "loopback-datasource-juggler": "^2.29.2",
+    "serve-static": "^1.7.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
