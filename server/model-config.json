@@ -14,22 +14,26 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "streambacker_db"
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "streambacker_db",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "streambacker_db",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "streambacker_db",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "streambacker_db",
     "public": false
+  },
+  "Viewer": {
+    "dataSource": "streambacker_db",
+    "public": true
   }
 }
