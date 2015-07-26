@@ -29,6 +29,9 @@ config =
       main: wwwPath
       scripts: scriptsPath
       styles: stylesPath
+    loopback:
+      backend_route: '/streambacker/api'
+      backend_main_file: 'server/server.coffee'
 
   folders:
     scripts:
