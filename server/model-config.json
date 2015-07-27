@@ -31,9 +31,5 @@
   "Role": {
     "dataSource": "streambacker_db",
     "public": false
-  },
-  "Viewer": {
-    "dataSource": "streambacker_db",
-    "public": true
   }
 }
