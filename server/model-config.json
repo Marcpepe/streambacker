@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "streambacker_db"
+  },
+  "AccessToken": {
+    "dataSource": "streambacker_db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "streambacker_db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "streambacker_db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "streambacker_db",
+    "public": false
+  },
+  "Viewer": {
+    "dataSource": "streambacker_db",
+    "public": true
+  }
+}

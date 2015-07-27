@@ -3,3 +3,4 @@ bower_components
 www
 public
 npm-debug.log
+mongo/*
