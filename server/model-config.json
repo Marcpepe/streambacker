@@ -31,5 +31,29 @@
   "Role": {
     "dataSource": "streambacker_db",
     "public": false
+  },
+  "Channel": {
+    "dataSource": "streambacker_db",
+    "public": true
+  },
+  "Game": {
+    "dataSource": "streambacker_db",
+    "public": true
+  },
+  "Stream": {
+    "dataSource": "streambacker_db",
+    "public": true
+  },
+  "Gamestamp": {
+    "dataSource": "streambacker_db",
+    "public": true
+  },
+  "Recording": {
+    "dataSource": "streambacker_db",
+    "public": true
+  },
+  "Streamstamp": {
+    "dataSource": "streambacker_db",
+    "public": true
   }
 }
