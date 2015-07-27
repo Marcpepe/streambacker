@@ -5,12 +5,12 @@ bowerModule = require '../../bower.json'
 moduleName = bowerModule.name
 modulePlaceholder = '%module%'
 
-srcPath = 'src'
+srcPath = 'client'
 assetsPlaceholder = '%assets%'
 assetsFolder = 'assets'
 assetsPath = "#{srcPath}/#{assetsFolder}"
 
-wwwPath = 'public'
+wwwPath = 'www'
 scriptsPlaceholder = '%scripts%'
 scriptsFolder = 'scripts'
 scriptsPath = "#{wwwPath}/#{scriptsFolder}"
@@ -29,6 +29,9 @@ config =
       main: wwwPath
       scripts: scriptsPath
       styles: stylesPath
+    loopback:
+      backend_route: '/streambacker/api'
+      backend_main_file: 'server/server.coffee'
 
   folders:
     scripts:
@@ -52,9 +55,5 @@ config =
       placeholder: modulePlaceholder
       # Include the replace in the streams where needed
       replacer: (replace) -> replace modulePlaceholder, moduleName
-
-  analytics:
-    id: 'UA-XXXXXXXX-X'
-    domain: 'doma.in'
 
 module.exports = config

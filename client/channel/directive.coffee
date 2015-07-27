@@ -3,7 +3,7 @@ angular.module '%module%.channel'
     # controller: 'ChannelController'
     link: ($scope) ->
       margin =
-        top: 20
+        top: 50
         right: 20
         bottom: 30
         left: 80
@@ -64,6 +64,14 @@ angular.module '%module%.channel'
           .attr 'dy', '.71em'
           .style 'text-anchor', 'end'
           .text 'Viewers'
+
+      svg.append 'text'
+        .attr 'x', (width/2)
+        .attr 'y', 0 - (margin.top/2)
+        .attr 'text-anchor', 'middle'
+        .style 'font-size', '16px'
+        .style 'font-weight', 'bold'
+        .text new Date(data[0].stream.createdAt).toDateString()
 
       svg.append "path"
           .datum data

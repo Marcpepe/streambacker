@@ -1,45 +1,3 @@
-Parse.Cloud.job("twitchDataOld", function(request, status) {
-  // Parse.Cloud.useMasterKey();
-  var StreamData = Parse.Object.extend("StreamData");
-  Parse.Cloud.httpRequest({
-    url: 'https://api.twitch.tv/kraken/streams',
-    params: {
-      channel : 'imaqtpie,phantoml0rd,sodapoppin,lirik,riotgames,lirik'
-    },
-    headers: {
-      'Accept': 'application/vnd.twitchtv.v3+json',
-      'Content-Type': 'application/json;charset=utf-8',
-      'Client-ID': 'kdhloc045kq5oabztj8yf447vw49b5a'
-    }
-  }).then(function(httpResponse) {
-    console.log('Http response text: '+httpResponse.text);
-    var data = httpResponse.data["streams"]
-    for (var i = 0; i < data.length; i++) {
-      var streamData = new StreamData();
-      // Stream
-      streamData.set('viewers', data[i].viewers)
-      streamData.set('status', data[i].channel.status)
-      // Streamer
-      streamData.set('name', data[i].channel.name)
-      // Game
-      streamData.set('game', data[i].game)
-
-      streamData.save(null, {
-        success: function(streamData) {
-          status.message("Saving stream data..");
-          status.success("Stream data was saved successfully.");
-        },
-        error: function(streamData, error) {
-          status.error("Stream data was not saved.");
-        }
-      });
-    }
-    status.success("Apparently there was no streamer online..");
-  }, function(httpResponse) {
-    console.error('Arf.. Request failed with response code ' + httpResponse.status);
-  });
-});
-
 Parse.Cloud.job("twitchData", function(request, status) {
   // Streamer list
   var streamers = 'imaqtpie,phantoml0rd,sodapoppin,lirik,riotgames,kolento,trumpsc';
@@ -179,12 +137,12 @@ Parse.Cloud.job("twitchData", function(request, status) {
                       if (res.length > 0) {
                         console.log('Stream already exists');
                         var stream = res[0];
-                        stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
+                        // stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
                       } else {
                         console.log('Stream did not exist')
                         var stream = new Stream();
                         stream.set('twitchId', stream_data[i]._id);
-                        stream.set('creationStamp', new Date(stream_data[i].created_at));
+                        stream.set('creationStamp', stream_data[i].created_at);
                         stream.set('uptime', new Date() - new Date(stream_data[i].created_at))
                         stream.set('channel', channel);
                       }
@@ -228,7 +186,7 @@ Parse.Cloud.job("twitchData", function(request, status) {
     }).then(function() {
       status.success('Success!');
     }, function(error) {
-        console.error('ARF, error was : '+error);
+        console.error('ARF, error was : '+JSON.stringify(error));
         status.error('ERROR, there was an error!')
     });
   });

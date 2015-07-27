@@ -1,0 +1,26 @@
+server: &defaults
+  # build: .
+  image: node:0.10
+  working_dir: /app
+  volumes:
+    - .:/app
+  command: ./node_modules/.bin/coffee server/server.coffee
+  links:
+    - stbkmongo
+
+npm:
+  <<: *defaults
+  entrypoint: ['npm']
+
+stbkmongo:
+  image: mongo:latest
+  volumes:
+    - ./mongo:/data/db
+
+proxy:
+  image: nginx:1.7
+  ports:
+    - '5013:5013'
+  volumes:
+    - devops/proxy:/etc/nginx/conf.d
+    - www:/var/www
