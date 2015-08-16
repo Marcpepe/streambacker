@@ -1,5 +1,20 @@
 # Project Streambacker
 
+## Develop with Docker
+
+### Local
+
+`dkm create -d virtualbox streambacker-dev`
+`eval $(docker-machine env streambacker-dev)`
+`dkc up -d`
+
+### Remote
+
+## Docker Machine
+
+`dkm create -d virtualbox streambacker-dev`
+`dkm create -d generic --generic-ip-address 149.202.54.200 --generic-ssh-user root --generic-ssh-key ~/.ssh/stbk_rsa streambacker-staging`
+
 ## Setup tests
 
 #### Unit tests
