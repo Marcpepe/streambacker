@@ -6,6 +6,7 @@
     "type": "git",
     "url": "git@github.com:Marcpepe/streambacker.git"
   },
+  "private": true,
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp build",
     "build": "./node_modules/.bin/gulp build",
