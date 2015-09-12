@@ -43,9 +43,10 @@
     "lodash": "^3.9.3",
     "loopback": "^2.18.0",
     "loopback-boot": "^2.8.0",
-    "loopback-explorer": "^1.8.0",
     "loopback-connector-mongodb": "^1.9.2",
     "loopback-datasource-juggler": "^2.29.2",
+    "loopback-explorer": "^1.8.0",
+    "sails": "^0.11.0",
     "serve-static": "^1.7.1"
   },
   "devDependencies": {
