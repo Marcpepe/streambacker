@@ -1,12 +1,13 @@
 {
   "name": "streambacker",
+  "private": true,
   "version": "0.0.1",
   "description": "Streambacker app",
+  "keywords": [],
   "repository": {
     "type": "git",
     "url": "git@github.com:Marcpepe/streambacker.git"
   },
-  "private": true,
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp build",
     "build": "./node_modules/.bin/gulp build",
@@ -19,12 +20,28 @@
     "docs": "gulp docs"
   },
   "dependencies": {
+    "ejs": "~0.8.4",
+    "grunt": "0.4.2",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-jst": "~0.6.0",
+    "grunt-contrib-less": "0.11.1",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-sails-linker": "~0.9.5",
+    "grunt-sync": "~0.0.4",
+    "include-all": "~0.1.3",
+    "rc": "~0.5.0",
+    "sails": "~0.11.0",
+    "sails-disk": "~0.10.0",
     "bower": "*",
     "coffee-script": "*",
     "compression": "~1.5.1",
     "cors": "^2.7.1",
     "errorhandler": "~1.4.1",
-    "express": "^4.10.4",
     "gulp": "*",
     "gulp-angular-templatecache": "*",
     "gulp-coffee": "*",
@@ -40,13 +57,6 @@
     "gulp-sourcemaps": "*",
     "gulp-webserver": "*",
     "http-proxy": "^1.7.1",
-    "lodash": "^3.9.3",
-    "loopback": "^2.18.0",
-    "loopback-boot": "^2.8.0",
-    "loopback-connector-mongodb": "^1.9.2",
-    "loopback-datasource-juggler": "^2.29.2",
-    "loopback-explorer": "^1.8.0",
-    "sails": "^0.11.0",
     "serve-static": "^1.7.1"
   },
   "devDependencies": {
@@ -58,5 +68,6 @@
     "gulp-loopback-sdk-angular": "~0.1.3",
     "gulp-uglify": "~1.2.0"
   },
-  "license": "MIT"
+  "main": "app.js",
+  "license": ""
 }
