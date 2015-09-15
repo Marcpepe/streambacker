@@ -1,59 +1,36 @@
-replacer = (replacePlugin, placeholder, target) ->
-  replacePlugin new RegExp(placeholder, 'g'), target
-
-bowerModule = require '../../bower.json'
-moduleName = bowerModule.name
-modulePlaceholder = '%module%'
-
-srcPath = 'client'
-assetsPlaceholder = '%assets%'
-assetsFolder = 'assets'
-assetsPath = "#{srcPath}/#{assetsFolder}"
-
-wwwPath = 'www'
-scriptsPlaceholder = '%scripts%'
-scriptsFolder = 'scripts'
-scriptsPath = "#{wwwPath}/#{scriptsFolder}"
-stylesPlaceholder = '%styles%'
-stylesFolder = 'styles'
-stylesPath = "#{wwwPath}/#{stylesFolder}"
+app_path = 'client'
+server_path = 'server'
+common_path = 'common'
+web_path = 'www'
 
 config =
 
-  paths:
-    src:
-      main: srcPath
-      assets: assetsPath
-      i18n: 'i18n'
-    www:
-      main: wwwPath
-      scripts: scriptsPath
-      styles: stylesPath
-    loopback:
-      backend_route: '/streambacker/api'
-      backend_main_file: 'server/server.coffee'
+  app_route: '/streambacker'
+  backend_route: '/streambacker/api'
 
-  folders:
-    scripts:
-      name: scriptsFolder
-      replacer: (replace) -> replace scriptsPlaceholder, scriptsFolder
-    styles:
-      name: stylesFolder
-      replacer: (replace) -> replace stylesPlaceholder, stylesFolder
+  app_path: app_path
+  server_path: server_path
+  common_path: common_path
+  web_path: web_path
+  vendor_path: 'vendor'
+  assets_path: "#{app_path}/assets"
+  build_temp_path: 'devops/build/temp'
 
-  files:
-    app: 'app.js'
-    styles: 'app.css'
-    templates: 'templates.js'
-    vendors:
-      scripts: 'vendor.js'
-      styles: 'vendor.css'
-
-  angular:
-    module:
-      name: moduleName
-      placeholder: modulePlaceholder
-      # Include the replace in the streams where needed
-      replacer: (replace) -> replace modulePlaceholder, moduleName
+  app_main_file: 'app.js'
+  # backend_main_file: 'server/server.coffee'
+  css_main_file: 'app.css'
+  less_main_file: "#{app_path}/app.less"
+  templates_file: 'app.templates.js'
+  templates_module: 'pepiniere.dashbook.templates'
+  vendor_main_file: 'vendor.js'
+  i18n:
+    input_path: "#{app_path}/i18n"
+    output_path: "#{web_path}/i18n"
+  fonts:
+    input_paths: [
+      'bower_components/font-awesome/fonts/*'
+      'bower_components/bootstrap/fonts/*'
+    ]
+    output_path: "#{web_path}/css/fonts"
 
 module.exports = config

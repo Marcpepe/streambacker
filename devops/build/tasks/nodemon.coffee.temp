@@ -1,0 +1,14 @@
+gulp = require 'gulp'
+nodemon = require 'gulp-nodemon'
+
+gulp.task 'nodemon', ['build'], ->
+  nodemon
+    /* script: 'server/server.coffee' */
+    script: 'app.js'
+    ext: 'js coffee json jade'
+    ignore: ['./www/*', './client/*', 'node_modules/*', 'bower_components/*']
+    legacyWatch: true
+  .on 'restart', ->
+    console.log 'restarted!'
+  .on 'change', ->
+    console.log 'changed!'
