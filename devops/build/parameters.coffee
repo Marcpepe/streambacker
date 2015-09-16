@@ -1,6 +1,5 @@
 app_path = 'client'
-server_path = 'server'
-common_path = 'common'
+# server_path = 'server'
 web_path = 'www'
 
 config =
@@ -9,8 +8,7 @@ config =
   backend_route: '/streambacker/api'
 
   app_path: app_path
-  server_path: server_path
-  common_path: common_path
+  # server_path: server_path
   web_path: web_path
   vendor_path: 'vendor'
   assets_path: "#{app_path}/assets"
@@ -19,9 +17,10 @@ config =
   app_main_file: 'app.js'
   # backend_main_file: 'server/server.coffee'
   css_main_file: 'app.css'
-  less_main_file: "#{app_path}/app.less"
-  templates_file: 'app.templates.js'
-  templates_module: 'pepiniere.dashbook.templates'
+  vendor_css_main_file: 'vendor.css'
+  less_main_file: "#{app_path}/main.less"
+  templates_file: 'templates.js'
+  templates_module: 'streambacker'
   vendor_main_file: 'vendor.js'
   i18n:
     input_path: "#{app_path}/i18n"
