@@ -1,4 +1,4 @@
-angular.module '%module%.main'
+angular.module 'streambacker.main'
 .factory 'twitchMain', ($resource) ->
   $resource 'https://api.parse.com/1/', {},
     getChannels:

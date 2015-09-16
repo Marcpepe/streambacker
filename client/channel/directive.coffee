@@ -1,4 +1,4 @@
-angular.module '%module%.channel'
+angular.module 'streambacker.channel'
   .directive 'channelViews', ->
     # controller: 'ChannelController'
     link: ($scope) ->

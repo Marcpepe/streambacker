@@ -1,16 +1,16 @@
 ###*
   @ngdoc module
-  @name %module%
-  @module %module%
+  @name streambacker
+  @module streambacker
   @description
 
   This module requires all submodules of your app
 ###
 
-angular.module '%module%', [
+angular.module 'streambacker', [
   'ngMaterial'
   'ngRoute'
-  '%module%.main'
-  '%module%.channel'
-  '%module%.game'
+  'streambacker.main'
+  'streambacker.channel'
+  'streambacker.game'
 ]

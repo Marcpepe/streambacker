@@ -1,4 +1,4 @@
-angular.module '%module%.channel'
+angular.module 'streambacker.channel'
 .factory 'twitchChannel', ($resource, $route) ->
   $resource 'https://api.parse.com/1/', {},
     getStreamStamps:

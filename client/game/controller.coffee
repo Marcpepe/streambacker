@@ -1,4 +1,4 @@
-angular.module '%module%.game'
+angular.module 'streambacker.game'
   .controller 'GameController', ($scope, $routeParams, gameStamps) ->
     $scope.twitchId = parseInt $routeParams.twitchId
     $scope.gameStamps = gameStamps.results

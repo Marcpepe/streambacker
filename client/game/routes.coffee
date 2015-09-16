@@ -1,4 +1,4 @@
-angular.module '%module%.channel'
+angular.module 'streambacker.channel'
 .config ($routeProvider) ->
   $routeProvider.when '/game/:twitchId',
     templateUrl: 'game/view.html'

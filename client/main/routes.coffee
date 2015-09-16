@@ -1,4 +1,4 @@
-angular.module '%module%.main'
+angular.module 'streambacker.main'
 .config ($routeProvider) ->
   $routeProvider.when '/',
     templateUrl: 'main/view.html'

@@ -9,12 +9,14 @@ RUN cd && cp -R .bashrc .profile /home/stbk
 # WORKDIR /var/www/streambacker
 WORKDIR /home/stbk
 # TODO Use .dockerignore file instead
+COPY api api/
 COPY client client/
-COPY common common/
+COPY config config/
 COPY devops devops/
-COPY server server/
-COPY package.json \
+COPY app.js \
      bower.json \
+     package.json \
+     .sailsrc \
      gulpfile.js \
      ./
 
@@ -25,4 +27,4 @@ USER stbk
 # --unsafe-perm is needed otherwise postinstall fails
 RUN npm install
 # RUN npm install --unsafe-perm
-CMD ./node_modules/.bin/coffee server/server.coffee
+CMD ./node_modules/.bin/sails lift

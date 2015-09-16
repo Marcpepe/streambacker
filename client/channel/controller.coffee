@@ -1,4 +1,4 @@
-angular.module '%module%.channel'
+angular.module 'streambacker.channel'
   .controller 'ChannelController', ($scope, $routeParams, streamStamps) ->
     $scope.twitchId = parseInt $routeParams.twitchId
     $scope.streamStamps = streamStamps.results
