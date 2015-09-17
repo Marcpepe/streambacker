@@ -9,17 +9,16 @@ RUN cd && cp -R .bashrc .profile /home/stbk
 # WORKDIR /var/www/streambacker
 WORKDIR /home/stbk
 # TODO Use .dockerignore file instead
-ADD . .
-# COPY api api/
-# COPY client client/
-# COPY config config/
-# COPY devops devops/
-# COPY app.js \
-     # bower.json \
-     # package.json \
-     # .sailsrc \
-     # gulpfile.js \
-     # ./
+COPY api api/
+COPY client client/
+COPY config config/
+COPY devops devops/
+COPY app.js \
+     bower.json \
+     package.json \
+     .sailsrc \
+     gulpfile.js \
+     ./
 
 RUN chown -R stbk:stbk /home/stbk
 USER stbk
