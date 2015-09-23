@@ -1,12 +1,4 @@
-assets-old/
-bower_components/
 cloud/
-nodes_modules/
-tasks_old/
-test/
 views/
-www/
-Gruntfile.js
 docker-compose.yml
-Dockerfile
-Dockerfile.prod
+Dockerfile*

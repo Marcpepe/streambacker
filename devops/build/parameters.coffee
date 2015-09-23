@@ -1,6 +1,6 @@
 app_path = 'client'
 # server_path = 'server'
-web_path = 'www'
+web_path = 'web'
 
 config =
 

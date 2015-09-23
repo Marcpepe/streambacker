@@ -1,0 +1,18 @@
+server:
+  build: .
+  links:
+    - stbkmongo
+
+stbkmongo:
+  image: mongo:latest
+  command: mongod --smallfiles
+
+proxy:
+  image: nginx:1.7
+  ports:
+    - '5013:5013'
+  volumes:
+    - ./devops/proxy:/etc/nginx/conf.d
+    - ./www:/var/www
+  links:
+    - server

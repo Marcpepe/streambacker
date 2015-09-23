@@ -9,7 +9,7 @@
     "url": "git@github.com:Marcpepe/streambacker.git"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp build",
+    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/.bin/gulp build",
     "build": "./node_modules/.bin/gulp build",
     "watch": "./node_modules/.bin/gulp watch",
     "start:all": "npm run start:server & npm run watch",
@@ -57,8 +57,7 @@
     "gulp-util": "*",
     "main-bower-files": "*",
     "protractor": "*",
-    "require-dir": "*",
-    "vinyl-paths": "*"
+    "require-dir": "*"
   },
   "main": "app.js",
   "license": ""

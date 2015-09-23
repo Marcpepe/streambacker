@@ -1,9 +1,9 @@
-FROM node:latest
+FROM nginx:1.7
 LABEL version="0.0.1"
 MAINTAINER Marc Perrin-Pelletier <marc.perrinpelletier@gmail.com>
 
 # WORKDIR /home/stbk
-WORKDIR /var/www/stbk
+WORKDIR /var/www/stbk/web
 
 RUN useradd -ms /bin/bash stbk
 # RUN useradd stbk
@@ -12,9 +12,10 @@ RUN useradd -ms /bin/bash stbk
 # RUN chown -R stbk:stbk /home/stbk
 # RUN usermod -u 1000 stbk
 RUN chown -R stbk:stbk /var/www
-USER stbk
+# USER stbk // Do not use this user, otherwise nginx process won't be able to log to /etc/nginx/log/.. -> /proc/.. (proc is root!)
 
 # COPY devops devops/
+COPY devops/proxy/streambacker.conf /etc/nginx/conf.d/streambacker.conf
 # COPY bower.json \
      # gulpfile.js \
      # package.json \
