@@ -1,3 +1,3 @@
 angular.module 'streambacker.main', [
-  'ngRoute'
+  'ui.router'
 ]

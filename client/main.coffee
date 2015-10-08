@@ -9,7 +9,6 @@
 
 angular.module 'streambacker', [
   'ngMaterial'
-  'ngRoute'
   'streambacker.main'
   'streambacker.channel'
   'streambacker.game'
