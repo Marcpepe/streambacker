@@ -1,4 +1,4 @@
 angular.module 'streambacker.game', [
-  'ngRoute'
+  'ui.router'
   'ngResource'
 ]

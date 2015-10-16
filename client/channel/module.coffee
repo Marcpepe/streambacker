@@ -1,4 +1,4 @@
 angular.module 'streambacker.channel', [
-  'ngRoute'
+  'ui.router'
   'ngResource'
 ]
