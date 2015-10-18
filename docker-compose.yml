@@ -1,26 +1,41 @@
-server: &defaults
-  # build: .
-  image: node:0.10
-  working_dir: /app
+server:
+  # image: node:latest
+  build: .
+  # dockerfile: Dockerfile.dev.server
+  # working_dir: /home/stbk
+  # working_dir: /var/www/stbk
   volumes:
-    - .:/app
-  command: ./node_modules/.bin/coffee server/server.coffee
+    - .:/var/www/stbk
+    # - .:/home/stbk
+    # - .:/stbk-app
+  # command: bash -c "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/sails lift"
+  command: bash -c "npm install && ./node_modules/.bin/sails lift"
+  # command: ./node_modules/.bin/sails lift
+  ports:
+    - '1337:1337'
   links:
     - stbkmongo
 
-npm:
-  <<: *defaults
-  entrypoint: ['npm']
-
 stbkmongo:
   image: mongo:latest
-  volumes:
-    - ./mongo:/data/db
+  command: mongod --smallfiles
+  # volumes:
+    # - ./mongo:/data/db
 
 proxy:
   image: nginx:1.7
+  # build: .
+  # user: root
+  # dockerfile: Dockerfile.dev.proxy
+  # working_dir: /home/stbk
   ports:
     - '5013:5013'
+    # - '8080:8080'
+  links:
+    - server
   volumes:
-    - devops/proxy:/etc/nginx/conf.d
-    - www:/var/www
+    # - ./www:/home/stbk/www
+    # - ./www:/var/www/stbk/www
+    - ./web:/var/www/stbk/web
+    # - .:/var/www/stbk
+    - ./devops/proxy:/etc/nginx/conf.d

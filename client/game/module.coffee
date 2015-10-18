@@ -1,4 +1,3 @@
-angular.module '%module%.game', [
-  'ngRoute'
-  'ngResource'
+angular.module 'streambacker.game', [
+  'ui.router'
 ]

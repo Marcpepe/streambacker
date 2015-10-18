@@ -1,12 +1,8 @@
 gulp = require 'gulp'
-# webserver = require 'gulp-webserver'
-
 parameters = require '../parameters.coffee'
 
+# Watch for changes an provide a proxy server to the vagrant box that supports livereload
 gulp.task 'watch', ['build'], ->
-  gulp.watch "#{parameters.paths.src.main}/**", ['build']
+  gulp.watch "#{parameters.app_path}/**/*", ['compile']
+  gulp.watch 'bower_components', ['copy']
 
-  # gulp.src parameters.paths.www.main
-  # .pipe webserver
-    # livereload: true
-    # fallback: 'index.html'

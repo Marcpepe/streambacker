@@ -1,2 +1,2 @@
-gulp = require('gulp');
-plug = require('gulp-plug')(gulp, __dirname + '/devops/build/tasks');
+require('coffee-script/register');
+require('./devops/build/gulpfile.coffee');

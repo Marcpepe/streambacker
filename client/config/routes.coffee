@@ -1,4 +1,3 @@
-angular.module '%module%'
-.config ($routeProvider) ->
-    $routeProvider.otherwise
-      redirectTo: '/'
+# angular.module 'streambacker'
+# .config ($urlRouterProvider) ->
+    # $urlRouterProvider.otherwise '/'

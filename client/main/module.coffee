@@ -1,3 +1,3 @@
-angular.module '%module%.main', [
-  'ngRoute'
+angular.module 'streambacker.main', [
+  'ui.router'
 ]

@@ -1,5 +1,6 @@
-angular.module '%module%.channel'
-.factory 'twitchGame', ($resource, $route) ->
+angular.module 'streambacker.channel'
+# .factory 'twitchGame', ($resource, $route) ->
+.factory 'twitchGame', ($resource) ->
   $resource 'https://api.parse.com/1/', {},
     getGameStamps:
       method: 'GET'
@@ -13,7 +14,8 @@ angular.module '%module%.channel'
           game:
             $inQuery:
               where:
-                twitchId: parseInt $route.current.params.twitchId
+                # twitchId: parseInt $route.current.params.twitchId
+                twitchId: 21779
               className: 'Game'
       headers:
         'X-Parse-Application-Id': 'FjV0J1GNH4gNUjwPOPREt5vPmxrn3Ht6vyLaaQ1R'

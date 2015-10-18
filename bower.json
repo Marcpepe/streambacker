@@ -5,7 +5,7 @@
     "angular": "*",
     "angular-material": "*",
     "angular-resource": "*",
-    "angular-route": "*",
+    "angular-ui-router": "*",
     "font-awesome": "*",
     "d3": "~3.5.5"
   },
