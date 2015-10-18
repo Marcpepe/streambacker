@@ -20,7 +20,7 @@ config =
   vendor_css_main_file: 'vendor.css'
   less_main_file: "#{app_path}/main.less"
   templates_file: 'templates.js'
-  templates_module: 'streambacker'
+  templates_module: 'streambacker.templates'
   vendor_main_file: 'vendor.js'
   i18n:
     input_path: "#{app_path}/i18n"

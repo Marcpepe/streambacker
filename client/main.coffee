@@ -10,7 +10,8 @@
 angular.module 'streambacker', [
   'ngMaterial'
   'ui.router'
+  'streambacker.templates'
   'streambacker.main'
-  # 'streambacker.channel'
-  # 'streambacker.game'
+  'streambacker.channel'
+  'streambacker.game'
 ]

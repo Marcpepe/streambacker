@@ -3,13 +3,13 @@ h3 Welcome to Streambacker
 h4 List of top streamers
 ul
   li(ng-repeat="channel in channels['results']")
-    a(href="/#/channel/{{ channel.twitchId }}")
+    a(href ui-sref="channel({ twitchId: channel.twitchId })")
       | {{ channel.display_name }}
 
 h4 List of top games
 ul
   li(ng-repeat="game in games['results']")
-    a(href="/#/game/{{ game.twitchId }}")
+    a(href ui-sref="game({ twitchId: game.twitchId})")
       | {{ game.name }}
 
 div(ui-view)

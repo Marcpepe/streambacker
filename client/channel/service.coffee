@@ -1,5 +1,6 @@
 angular.module 'streambacker.channel'
-.factory 'twitchChannel', ($resource, $route) ->
+# .factory 'twitchChannel', ($resource, $route) ->
+.factory 'twitchChannel', ($resource) ->
   $resource 'https://api.parse.com/1/', {},
     getStreamStamps:
       method: 'GET'
@@ -16,7 +17,8 @@ angular.module 'streambacker.channel'
                 channel:
                   $inQuery:
                     where:
-                      twitchId: parseInt $route.current.params.twitchId
+                      # twitchId: parseInt $route.current.params.twitchId
+                      twitchId: 14836307
                     className: 'Channel'
               className: 'Stream'
       headers:
