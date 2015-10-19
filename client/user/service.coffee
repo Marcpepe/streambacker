@@ -1,6 +1,6 @@
 angular.module 'streambacker.user'
 .factory 'twitchUser', ($resource) ->
-  $resource '127.0.0.1:1337/user', {},
+  $resource '/api/user', {},
     getUsers:
       method: 'GET'
 
