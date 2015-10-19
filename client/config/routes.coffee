@@ -1,3 +1,3 @@
-# angular.module 'streambacker'
-# .config ($urlRouterProvider) ->
-    # $urlRouterProvider.otherwise '/'
+angular.module 'streambacker'
+.config ($urlRouterProvider) ->
+    $urlRouterProvider.otherwise '/'
