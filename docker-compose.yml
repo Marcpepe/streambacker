@@ -10,6 +10,7 @@ server:
     # - .:/stbk-app
   # command: bash -c "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/sails lift"
   command: bash -c "npm install && ./node_modules/.bin/sails lift"
+  # command: bash
   # command: ./node_modules/.bin/sails lift
   ports:
     - '1337:1337'
@@ -23,7 +24,8 @@ stbkmongo:
     # - ./mongo:/data/db
 
 proxy:
-  image: nginx:1.7
+  image: nginx:latest
+  # image: nginx:1.7
   # build: .
   # user: root
   # dockerfile: Dockerfile.dev.proxy
@@ -31,6 +33,7 @@ proxy:
   ports:
     - '5013:5013'
     # - '8080:8080'
+    # - '1337:1337'
   links:
     - server
   volumes:
