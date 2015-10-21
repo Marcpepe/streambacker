@@ -1,6 +1,6 @@
 angular.module 'streambacker.user'
 .factory 'twitchUser', ($resource) ->
-  $resource '/user', {},
+  $resource '/api/user', {},
     getUsers:
       method: 'GET'
       isArray: true

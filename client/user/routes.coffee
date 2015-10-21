@@ -6,5 +6,5 @@ angular.module 'streambacker.user'
       templateUrl: 'user/view.html'
       controller: 'UserController'
       resolve:
-        gameStamps: (twitchUser) ->
+        users: (twitchUser) ->
           return twitchUser.getUsers().$promise
