@@ -1,4 +1,4 @@
-server:
+dev-server:
   # image: node:latest
   build: .
   # dockerfile: Dockerfile.dev.server
@@ -15,15 +15,15 @@ server:
   ports:
     - '1337:1337'
   links:
-    - stbkmongo
+    - dev-database
 
-stbkmongo:
+dev-database:
   image: mongo:latest
   command: mongod --smallfiles
   # volumes:
     # - ./mongo:/data/db
 
-proxy:
+dev-proxy:
   image: nginx:latest
   # image: nginx:1.7
   # build: .
@@ -35,10 +35,11 @@ proxy:
     # - '8080:8080'
     # - '1337:1337'
   links:
-    - server
+    - dev-server
   volumes:
     # - ./www:/home/stbk/www
     # - ./www:/var/www/stbk/www
-    - ./web:/var/www/stbk/web
     # - .:/var/www/stbk
-    - ./devops/proxy:/etc/nginx/conf.d
+    - ./devops/proxy/streambacker.dev.conf:/etc/nginx/conf.d/streambacker.dev.conf
+  volumes_from:
+    - dev-server

@@ -1,4 +1,3 @@
-# FROM node:0.12.7
 FROM node:latest
 LABEL version="0.0.1"
 MAINTAINER Marc Perrin-Pelletier <marc.perrinpelletier@gmail.com>
@@ -6,21 +5,24 @@ MAINTAINER Marc Perrin-Pelletier <marc.perrinpelletier@gmail.com>
 WORKDIR /var/www/stbk
 
 RUN useradd -ms /bin/bash stbk
-# RUN cd && cp -R .bashrc .profile /home/stbk
-# RUN chown -R stbk:stbk /home/stbk
-COPY package.json ./
+
+RUN chown -R stbk:stbk /var/www
+USER stbk
+
+COPY package.json \
+     bower.json \
+     gulpfile.js \
+     ./
+COPY client client/
+COPY devops devops/
 RUN npm install
 
 COPY api api/
-COPY client client/
 COPY config config/
-COPY devops devops/
 COPY app.js \
-     bower.json \
      .sailsrc \
-     gulpfile.js \
      ./
 
-USER stbk
+VOLUME /var/www/stbk
 
 CMD ./node_modules/.bin/sails lift
