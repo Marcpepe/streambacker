@@ -1,4 +1,3 @@
 cloud/
 views/
 docker-compose.yml
-Dockerfile*

@@ -1,18 +1,19 @@
-server:
-  build: .
+prod-server:
+  image: marcpepe/streambacker-server:latest
+  ports:
+    - '1337:1337'
   links:
-    - stbkmongo
+    - prod-database
 
-stbkmongo:
+prod-database:
   image: mongo:latest
   command: mongod --smallfiles
 
-proxy:
-  image: nginx:1.7
+prod-proxy:
+  image: marcpepe/streambacker-proxy:latest
   ports:
     - '5013:5013'
-  volumes:
-    - ./devops/proxy:/etc/nginx/conf.d
-    - ./www:/var/www
   links:
-    - server
+    - prod-server
+  volumes_from:
+    - prod-server

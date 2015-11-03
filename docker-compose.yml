@@ -1,4 +1,4 @@
-server:
+dev-server:
   # image: node:latest
   build: .
   # dockerfile: Dockerfile.dev.server
@@ -9,21 +9,24 @@ server:
     # - .:/home/stbk
     # - .:/stbk-app
   # command: bash -c "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/sails lift"
-  command: bash -c "npm install && ./node_modules/.bin/sails lift"
+  # command: bash -c "npm install && ./node_modules/.bin/sails lift"
+  command: bash -c "npm install && ./node_modules/.bin/coffee app.coffee"
+  # command: bash
   # command: ./node_modules/.bin/sails lift
   ports:
     - '1337:1337'
   links:
-    - stbkmongo
+    - dev-database
 
-stbkmongo:
+dev-database:
   image: mongo:latest
   command: mongod --smallfiles
   # volumes:
     # - ./mongo:/data/db
 
-proxy:
-  image: nginx:1.7
+dev-proxy:
+  image: nginx:latest
+  # image: nginx:1.7
   # build: .
   # user: root
   # dockerfile: Dockerfile.dev.proxy
@@ -31,11 +34,13 @@ proxy:
   ports:
     - '5013:5013'
     # - '8080:8080'
+    # - '1337:1337'
   links:
-    - server
+    - dev-server
   volumes:
     # - ./www:/home/stbk/www
     # - ./www:/var/www/stbk/www
-    - ./web:/var/www/stbk/web
     # - .:/var/www/stbk
-    - ./devops/proxy:/etc/nginx/conf.d
+    - ./devops/proxy/streambacker.dev.conf:/etc/nginx/conf.d/streambacker.dev.conf
+  volumes_from:
+    - dev-server
