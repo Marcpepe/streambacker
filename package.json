@@ -12,12 +12,13 @@
     "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/.bin/gulp build",
     "build": "./node_modules/.bin/gulp build",
     "watch": "./node_modules/.bin/gulp watch",
-    "start:all": "npm run start:server & npm run watch",
-    "start:server": "./node_modules/.bin/coffee server.coffee & ./node_modules/.bin/coffee server/notsoshitty-server.coffee",
-    "test": "karma start test/client/unit/karma-unit.coffee --single-run",
-    "test:unit": "karma start test/karma-unit.coffee",
-    "test:functional": "node_modules/.bin/protractor --require coffee-script/register test/protractor.conf.coffee",
-    "docs": "gulp docs"
+    "test": "npm run test:server",
+		"test:server": "NODE_ENV=test mocha test 'test/server/**/*.coffee'",
+    "test:server:unit": "NODE_ENV=test mocha test 'test/server/unit/**/*.coffee'",
+    "test:server:func": "NODE_ENV=test mocha test 'test/server/functional/**/*.coffee'",
+    "test:server:coverage": "export testing=1;mocha test 'test/app/**/*.coffee' --reporter html-cov > test/coverage-back/coverage.html",
+    "test:client:unit": "./node_modules/karma/bin/karma start test/client/karma-unit.coffee --single-run",
+    "test:client:integration": "./node_modules/.bin/protractor test/client/protractor.conf.coffee"
   },
   "dependencies": {
     "bower": "*",
