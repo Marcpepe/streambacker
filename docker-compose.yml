@@ -9,7 +9,8 @@ dev-server:
     # - .:/home/stbk
     # - .:/stbk-app
   # command: bash -c "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/sails lift"
-  command: bash -c "npm install && ./node_modules/.bin/sails lift"
+  # command: bash -c "npm install && ./node_modules/.bin/sails lift"
+  command: bash -c "npm install && ./node_modules/.bin/coffee app.coffee"
   # command: bash
   # command: ./node_modules/.bin/sails lift
   ports:
