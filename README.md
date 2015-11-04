@@ -2,6 +2,11 @@
 
 ## Develop with Docker
 
+### Building images
+
+docker build -t marcpepe/streambacker-proxy devops/proxy
+docker build -t marcpepe/streambacker-server .
+
 ### Local
 
 `dkm create -d virtualbox streambacker-dev`
