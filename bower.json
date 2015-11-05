@@ -6,9 +6,9 @@
     "angular-material": "*",
     "angular-resource": "*",
     "angular-ui-router": "*",
+    "d3": "~3.5.5",
     "font-awesome": "*",
-    "d3": "~3.5.5"
+    "sails.io.js": "*"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
