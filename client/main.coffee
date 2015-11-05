@@ -14,5 +14,4 @@ angular.module 'streambacker', [
   'streambacker.main'
   'streambacker.channel'
   'streambacker.game'
-  'streambacker.user'
 ]

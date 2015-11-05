@@ -10,4 +10,5 @@ module.exports =
     user:
       type: 'string'
       defaultsTo: 'anonymous'
-    body: 'string'
+      required: true
+    message: 'string'
