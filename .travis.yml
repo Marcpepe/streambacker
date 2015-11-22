@@ -14,8 +14,17 @@ node_js:
     # - bower_components
 
 notifications:
+  webhooks:
+    urls:
+      - https://registry.hub.docker.com/u/marcpepe/streambacker/trigger/$DOCKER_WEBHOOK_TOKEN
+    on_success: always
+    on_failure: never
+    on_start: never
   email:
-    - marc.perrinpelletier@gmail.com
+    recipients:
+      - marc.perrinpelletier@gmail.com
+    on_success: never
+    on_failure: always
 
 # before_install:
   # - npm install -g npm@latest
