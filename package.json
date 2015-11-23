@@ -9,7 +9,6 @@
     "url": "git@github.com:Marcpepe/streambacker.git"
   },
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install && ./node_modules/.bin/gulp build",
     "build": "./node_modules/.bin/gulp build",
     "watch": "./node_modules/.bin/gulp watch",
     "test": "npm run test:server",

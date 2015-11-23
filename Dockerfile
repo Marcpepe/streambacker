@@ -9,13 +9,15 @@ RUN useradd -ms /bin/bash stbk
 RUN chown -R stbk:stbk /var/www
 USER stbk
 
-COPY package.json \
-     bower.json \
+COPY package.json ./
+RUN npm install
+
+COPY bower.json \
      gulpfile.js \
      ./
 COPY client client/
 COPY devops/build devops/build/
-RUN npm install
+RUN ./node_modules/bower/bin/bower install && ./node_modules/.bin/gulp build
 
 COPY api api/
 COPY config config/
