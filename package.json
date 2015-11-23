@@ -48,7 +48,7 @@
     "gulp-concat": "*",
     "gulp-filter": "*",
     "gulp-jade": "*",
-    "gulp-less": "*",
+    "gulp-less": "3.0.3",
     "gulp-minify-css": "*",
     "gulp-ng-annotate": "*",
     "gulp-nodemon": "*",
