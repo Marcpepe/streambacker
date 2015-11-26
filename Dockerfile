@@ -1,5 +1,5 @@
 FROM node:latest
-LABEL version="0.0.10"
+LABEL version="0.0.11"
 MAINTAINER Marc Perrin-Pelletier <marc.perrinpelletier@gmail.com>
 
 WORKDIR /var/www/stbk
