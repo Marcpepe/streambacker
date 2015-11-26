@@ -28,4 +28,4 @@ COPY app.coffee \
 
 VOLUME /var/www/stbk
 
-CMD ./node_modules/.bin/sails lift
+CMD ./node_modules/.bin/coffee app.coffee
