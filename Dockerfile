@@ -1,5 +1,5 @@
 FROM node:latest
-LABEL version="0.0.1"
+LABEL version="0.0.10"
 MAINTAINER Marc Perrin-Pelletier <marc.perrinpelletier@gmail.com>
 
 WORKDIR /var/www/stbk
@@ -23,6 +23,7 @@ COPY api api/
 COPY config config/
 COPY app.coffee \
      .sailsrc \
+     README.md \
      ./
 
 VOLUME /var/www/stbk

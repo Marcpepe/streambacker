@@ -57,7 +57,7 @@ do ->
   # Start server
   sails.lift rc('sails')
 
-  sails.log.info 'YOOOOOOOLOOOOOOOOOOOOOOO4321'
+  sails.log.info 'VERSION 10'
   ChatListener.listen()
 
   return
