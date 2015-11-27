@@ -5,15 +5,22 @@
 # @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
 ###
 
-WebSocket = require('ws')
+WebSocket = require 'ws'
+# ChatListener = require './api/services/ChatListener.coffee'
 nick = 'akadot'
 auth = 'oauth:kvvmia2l6d2zh5rqw5269lnm6toica'
 channel = 'imaqtpie'
 
 module.exports = listen: (req, res) ->
-		if req.isSocket
-			Message.watch req.socket
-			sails.log 'USER SUBSCRIBED TO ' + req.socket.id
+  # sails.log 'REQ IS: ',req
+
+  if req.isSocket
+    Message.watch req.socket
+    sails.log 'USER SUBSCRIBED TO ' + req.socket.id
+  # else
+    # sails.log 'NOOOOOOOOOOOOOOOOOOOOOOO'
+
+
 # module.exports = watch: (req, res) ->
 		# ws = new WebSocket('ws://192.16.64.205:80')
 		# # Open connection

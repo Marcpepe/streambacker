@@ -22,8 +22,6 @@
 # no matter where we actually lift from.
 process.chdir __dirname
 
-ChatListener = require './api/services/ChatListener.coffee'
-
 # Ensure a "sails" can be located:
 do ->
   sails = undefined
@@ -56,8 +54,5 @@ do ->
 
   # Start server
   sails.lift rc('sails')
-
-  sails.log.info 'VERSION 10'
-  ChatListener.listen()
 
   return
