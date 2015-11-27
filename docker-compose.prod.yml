@@ -1,5 +1,5 @@
 prod-server:
-  image: marcpepe/streambacker-server:latest
+  image: marcpepe/streambacker-server-automated:latest
   ports:
     - '1337:1337'
   links:
@@ -10,7 +10,7 @@ prod-database:
   command: mongod --smallfiles
 
 prod-proxy:
-  image: marcpepe/streambacker-proxy:latest
+  image: marcpepe/streambacker-proxy-automated:latest
   ports:
     - '5013:5013'
   links:
