@@ -1,20 +1,17 @@
 dev-server:
-  # image: node:latest
   build: .
-  # dockerfile: Dockerfile.dev.server
-  # working_dir: /home/stbk
-  # working_dir: /var/www/stbk
+  dockerfile: Dockerfile.dev
   volumes:
     - .:/var/www/stbk
-    # - .:/home/stbk
-    # - .:/stbk-app
   # command: bash -c "npm install && ./node_modules/.bin/bower install && ./node_modules/.bin/sails lift"
   # command: bash -c "npm install && ./node_modules/.bin/sails lift"
   command: bash -c "npm install && ./node_modules/.bin/coffee app.coffee"
-  # command: bash
-  # command: ./node_modules/.bin/sails lift
-  ports:
-    - '1337:1337'
+  # ports: prevents from scaling. Expose is better in this case because it only makes the port accessible to linked containers
+  # ports:
+    # - '1337:1337'
+  # use ports instead to test api in browser
+  expose:
+    - 1337
   links:
     - dev-database
 
@@ -24,23 +21,21 @@ dev-database:
   # volumes:
     # - ./mongo:/data/db
 
+# dev-lb:
+  # image: tutum/haproxy:latest
+  # links:
+    # - dev-server
+  # ports:
+   # - '8080:80'
+
 dev-proxy:
   image: nginx:latest
-  # image: nginx:1.7
-  # build: .
-  # user: root
-  # dockerfile: Dockerfile.dev.proxy
-  # working_dir: /home/stbk
   ports:
-    - '5013:5013'
-    # - '8080:8080'
-    # - '1337:1337'
+    # - '80:8080'
+    - '80:5013'
   links:
     - dev-server
   volumes:
-    # - ./www:/home/stbk/www
-    # - ./www:/var/www/stbk/www
-    # - .:/var/www/stbk
     - ./devops/proxy/streambacker.dev.conf:/etc/nginx/conf.d/streambacker.dev.conf
   volumes_from:
     - dev-server

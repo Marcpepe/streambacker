@@ -6,6 +6,8 @@ angular.module 'streambacker.main'
       templateUrl: 'main/view.html'
       controller: 'MainController'
       resolve:
+        hostname: (hostnameFetcher) ->
+          return hostnameFetcher.getHostname().$promise
         channels: (twitchMain) ->
           return twitchMain.getChannels().$promise
         games: (twitchMain) ->

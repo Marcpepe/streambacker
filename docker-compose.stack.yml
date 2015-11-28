@@ -17,10 +17,3 @@ prod-proxy:
     - prod-server
   volumes_from:
     - prod-server
-
-prod-lb:
-  image: tutum/haproxy:latest
-  links:
-    - prod-server
-  ports:
-   - '80:80'
