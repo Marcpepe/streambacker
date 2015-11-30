@@ -1,5 +1,5 @@
 FROM node:latest
-LABEL version="0.0.12"
+LABEL version="0.0.13"
 MAINTAINER Marc Perrin-Pelletier <marc.perrinpelletier@gmail.com>
 
 WORKDIR /var/www/stbk
@@ -26,6 +26,6 @@ COPY app.coffee \
      README.md \
      ./
 
-VOLUME /var/www/stbk
+VOLUME /var/www/stbk/web
 
 CMD ./node_modules/.bin/coffee app.coffee
