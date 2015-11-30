@@ -1,19 +1,18 @@
-prod-server:
-  image: marcpepe/streambacker-server-automated:latest
-  expose:
-    - 1337
-  links:
-    - prod-database
-
 prod-database:
-  image: mongo:latest
-  command: mongod --smallfiles
-
+  image: 'mongo:latest'
+  command: 'mongod --smallfiles'
 prod-proxy:
-  image: marcpepe/streambacker-proxy-automated:latest
+  image: 'marcpepe/streambacker-proxy-automated:0.0.1'
+  links:
+    - prod-server
   ports:
     - '80:5013'
-  links:
-    - prod-server
   volumes_from:
     - prod-server
+prod-server:
+  image: 'marcpepe/streambacker-server-automated:0.0.1'
+  expose:
+    - '1337'
+  links:
+    - prod-database
+  target_num_containers: 3
