@@ -18,9 +18,9 @@ prod-proxy:
   volumes_from:
     - prod-server
 
-prod-lb:
-  image: tutum/haproxy:latest
-  links:
-    - prod-server
-  ports:
-   - '80:80'
+# prod-lb:
+  # image: tutum/haproxy:latest
+  # links:
+    # - prod-server
+  # ports:
+   # - '80:80'
