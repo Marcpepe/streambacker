@@ -8,3 +8,7 @@ angular.module 'streambacker.channel'
       resolve:
         streamStamps: (twitchChannel) ->
           return twitchChannel.getStreamStamps().$promise
+    .state 'channel-list',
+      url: '/channels',
+      templateUrl: 'channel/list.html'
+      controller: 'ChannelListController'

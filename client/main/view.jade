@@ -1,15 +1,23 @@
 h3 Welcome to Streambacker (Container {{ hostname }})
 
-h4 List of top streamers
-ul
-  li(ng-repeat="channel in channels['results']")
-    a(href ui-sref="channel({ twitchId: channel.twitchId })")
-      | {{ channel.display_name }}
+p This is the homepage. Anyone is allowed to view it
 
-h4 List of top games
-ul
-  li(ng-repeat="game in games['results']")
-    a(href ui-sref="game({ twitchId: game.twitchId})")
-      | {{ game.name }}
+p You can also go to the&nbsp
+  a(href="/#/channels") channel list page
+
+p Or to the&nbsp
+  a(href="/game/list") game list page
+
+//- h4 List of top streamers
+//- ul
+  //- li(ng-repeat="channel in channels['results']")
+    //- a(href ui-sref="channel({ twitchId: channel.twitchId })")
+      //- | {{ channel.display_name }}
+
+//- h4 List of top games
+//- ul
+  //- li(ng-repeat="game in games['results']")
+    //- a(href ui-sref="game({ twitchId: game.twitchId})")
+      //- | {{ game.name }}
 
 div(ui-view)
