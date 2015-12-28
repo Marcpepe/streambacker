@@ -1,26 +1,28 @@
 doctype html
 html(lang="en", ng-app="streambacker")
   head
-    title New Ang2 page stbk
+    title New page stbk
     meta(charset="utf-8")
-    //- link(rel="icon", type="image/x-icon", href="/favicon.ico")
+    link(rel="icon", type="image/x-icon", href="/favicon.ico")
     link(rel="stylesheet", href="css/vendor.css")
-    //- link(rel="stylesheet", href="css/app.css")
+    link(rel="stylesheet", href="css/app.css")
   body(
     layout="column"
   )
     md-toolbar.md-warn
       .md-toolbar-tools
         span
-          a(href="/#/") Streambacker via Docker! v0.0.1
+          a(href="/#/") Streambacker via Docker! v13.1
         span(flex)
         md-button Right bar button
 
-    stbk-app(
+    .stbk-main(
+      ui-view
       layout-padding
     )
 
     span.stbk-color(layout-padding) FOOTER
 
     script(src="js/vendor.js")
-    script(src="js/system.js")
+    script(src="js/app.js")
+    script(src="js/templates.js")

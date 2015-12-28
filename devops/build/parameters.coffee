@@ -12,6 +12,7 @@ config =
   web_path: web_path
   vendor_path: 'vendor'
   assets_path: "#{app_path}/assets"
+  build_path: 'devops/build'
   build_temp_path: 'devops/build/temp'
 
   app_main_file: 'app.js'

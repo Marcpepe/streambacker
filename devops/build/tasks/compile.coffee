@@ -5,4 +5,5 @@ requireDir = require 'require-dir'
 dir = requireDir './compile'
 
 # Tasks concatening and compiling files
-gulp.task 'compile', ['coffee', 'templates', 'jade', 'less']
+# gulp.task 'compile', ['coffee', 'templates', 'jade', 'less']
+gulp.task 'compile', ['typescript', 'templates', 'jade', 'less']
