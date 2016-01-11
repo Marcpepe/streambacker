@@ -1,6 +1,10 @@
-import {Component} from 'angular2/core';
-import {Streamer} from './streamer'
-import {StreamerDetailsComponent} from './streamer-details.component'
+import {Component, OnInit} from 'angular2/core';
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+
+import {Streamer} from './streamers/streamer'
+import {StreamerService} from './streamers/streamer.service'
+import {StreamerDetailsComponent} from './streamers/streamer-details.component'
+import {AboutComponent} from './about.component'
 
 @Component({
     selector: 'stbk-app',
@@ -8,11 +12,14 @@ import {StreamerDetailsComponent} from './streamer-details.component'
     <h1>{{ title }}</h1>
     <h2>My Streamers</h2>
     <ul class="streamers">
-      <li [class.selected]="streamer === selectedStreamer" *ngFor="#streamer of streamers" (click)="onSelect(streamer)">
+      <li *ngFor="#streamer of streamers" [class.selected]="streamer === selectedStreamer" (click)="onSelect(streamer)">
         <span class="badge">{{streamer.id}}</span> {{streamer.name}}
       </li>
     </ul>
     <streamer-details [streamer]="selectedStreamer"></streamer-details>
+    <h2>About</h2>
+    <p>Learn more about the app <a [routerLink]="['About']">here</a>
+    <router-outlet></router-outlet>
 			`,
 		styles:[`
 			.streamers {list-style-type: none; margin-left: 1em; padding: 0; width: 10em;}
@@ -30,20 +37,29 @@ import {StreamerDetailsComponent} from './streamer-details.component'
 			}
 			.selected { background-color: #EEE; color: #369; }
 		`],
-    directives: [StreamerDetailsComponent]
+    directives: [StreamerDetailsComponent, ROUTER_DIRECTIVES],
+    providers: [StreamerService]
 })
+
+@RouteConfig([
+	{path:'/about',        name: 'About',       component: AboutComponent},
+])
 
 export class AppComponent {
   public title = 'Streambacker App';
-  public streamers = STREAMERS;
+  public streamers: any;
   public selectedStreamer: Streamer;
+
+  constructor(private _streamerService: StreamerService) { }
+
+  getStreamers() {
+    this.streamers = this._streamerService.getStreamers().then(streamers => this.streamers = streamers);
+  }
+
+  ngOnInit() {
+    this.getStreamers();
+  }
+
   onSelect(streamer: Streamer) { this.selectedStreamer = streamer; }
 }
 
-var STREAMERS: Streamer[] = [
-  { "id": 11, "name": "Trump" },
-  { "id": 12, "name": "Sodapoppin" },
-  { "id": 13, "name": "Lirik" },
-  { "id": 14, "name": "Kolento" },
-  { "id": 15, "name": "imaqtpie" },
-];

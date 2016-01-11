@@ -62,6 +62,7 @@ gulp.task 'vendors', ->
     'node_modules/systemjs/dist/system.src.js'
     'node_modules/rxjs/bundles/Rx.js'
     'node_modules/angular2/bundles/angular2.dev.js'
+    'node_modules/angular2/bundles/router.dev.js'
     'node_modules/angular2-material-build/angular2_material.dev.js'
   ]).pipe(concat(parameters.vendor_main_file)).pipe(gulp.dest("#{parameters.web_path}/js"))
 	# Styles
