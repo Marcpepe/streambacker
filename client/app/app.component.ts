@@ -5,6 +5,7 @@ import {Streamer} from './streamers/streamer'
 import {StreamerService} from './streamers/streamer.service'
 import {StreamerDetailsComponent} from './streamers/streamer-details.component'
 import {AboutComponent} from './about.component'
+import {MapToIterablePipe} from './map-to-iterable.pipe'
 
 @Component({
     selector: 'stbk-app',
@@ -38,7 +39,8 @@ import {AboutComponent} from './about.component'
 			.selected { background-color: #EEE; color: #369; }
 		`],
     directives: [StreamerDetailsComponent, ROUTER_DIRECTIVES],
-    providers: [StreamerService]
+    providers: [StreamerService],
+    pipes: [MapToIterablePipe]
 })
 
 @RouteConfig([
@@ -53,7 +55,8 @@ export class AppComponent {
   constructor(private _streamerService: StreamerService) { }
 
   getStreamers() {
-    this.streamers = this._streamerService.getStreamers().then(streamers => this.streamers = streamers);
+    //this.streamers = this._streamerService.getStreamers().then(streamers => this.streamers = streamers);
+    this.streamers = this._streamerService.getStreamers();
   }
 
   ngOnInit() {
