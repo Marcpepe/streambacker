@@ -1,3 +1,9 @@
+env:
+  global:
+  - MY_ENV_VAR=/home/stbk
+  - MY_OTHER_VAR=$MY_ENV_VAR/hello/world.json
+  - secure: "JjJay5DDU1JB0KM58KHvgld+G8+PEGYFR4r93yM5itf5u23otBiCck6iVV9GNRETzPOL3XCEz2MelGv3HRsoVxqoAN47VAZUZ3k2OVvt85HEzSNauWXNKQspt1x0+4u3JbTwGapjfpitlySkHEttAgaWzXEbEKkExpn3J4qOSrM6/FAF7jOGTzHoNWKBf30kZK8O/Qa1l1s63FD2WPF6P30UuOeQ39uMWuuDLxfzOanL7rQqXpBwU8zDp++iKE40C84mZ7raBIPcPN3qvkXL0BcBDrpnX4a0BqfWb5aKkLblv/UQRK5lV4hjIkA08Ti8vaUbr0Mps+6hmlRwN2ToWzIkUlC1KvBR+SLO53rsv9iKjH2M2UpUNiuvIcnvnJQAOvJqfbGLktvFzy6O3V6ho9PGQULY13eNg5PO4ht9WfIMkFBOogKqEGU4eUGfue5Zh0DGoKOXBYjqhlBHVXDXs4VxCGNhTnC5tPyPPHJ6rZ4mbGZ/eDp/BU+VHvnnjX72WgdSatWRRg3t4mW/nK06OaBdsb3/C1gNzigBGH0BQjdKEm6qQt2vrUIEbb/4iuFvW13GRUYvJdy0oZoRpT12w2PcMPD6dhOBKBhH0Y35A8PBxAbh8hKZ6oeKGzR6/zkAOHYba80dh5tcwbe+J5RynXfcJ97WwxJWL2j87edgq7o="
+
 sudo: false
 
 language: node_js
@@ -8,15 +14,15 @@ node_js:
 # services:
   # - mongodb
 
-# cache:
-  # directories:
-    # - node_modules
+cache:
+  directories:
+    - node_modules
     # - bower_components
 
 notifications:
   # webhooks:
     # urls:
-      # - https://registry.hub.docker.com/u/marcpepe/streambacker/trigger/$DOCKER_WEBHOOK_TOKEN
+      # - https://registry.hub.docker.com/u/marcpepe/streambacker-server-automated/trigger/$DOCKERHUB_WEBHOOK_TOKEN/
     # on_success: always
     # on_failure: never
     # on_start: never
@@ -40,6 +46,9 @@ notifications:
   # - sudo apt-get install -y mongodb-org=2.6.10 mongodb-org-server=2.6.10 mongodb-org-shell=2.6.10 mongodb-org-mongos=2.6.10 mongodb-org-tools=2.6.10
   # - sleep 15 #mongo may not be responded directly. See http://docs.travis-ci.com/user/database-setup/#MongoDB
   # - mongo --version
+
+after_success:
+  - "curl -H \"Content-Type: application/json\" --data '{\"source_type\": \"Branch\", \"source_name\": \"staging\"}' -X POST https://registry.hub.docker.com/u/marcpepe/streambacker-server-automated/trigger/$DOCKERHUB_WEBHOOK_TOKEN/"
 
 script:
   - npm test
