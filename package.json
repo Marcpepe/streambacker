@@ -20,7 +20,7 @@
     "test:client:integration": "./node_modules/.bin/protractor test/client/protractor.conf.coffee"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.7",
+    "angular2": "*",
     "bower": "*",
     "browserify": "^12.0.1",
     "coffee-script": "*",
@@ -37,15 +37,15 @@
     "rc": "*",
     "reflect-metadata": "0.1.2",
     "run-sequence": "*",
-    "rxjs": "5.0.0-beta.0",
+    "rxjs": "^5.0.0-beta.2",
     "sails": "*",
     "sails-disk": "*",
     "serve-static": "*",
-    "systemjs": "0.19.6",
+    "systemjs": "^0.19.16",
     "waterlock": "^0.1.0",
     "waterlock-local-auth": "0.0.6",
     "ws": "^0.8.0",
-    "zone.js": "0.5.10"
+    "zone.js": "^0.5.15"
   },
   "devDependencies": {
     "chai": "*",
