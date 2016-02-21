@@ -8,7 +8,7 @@ module.exports =
     ws = new WebSocket('ws://192.16.64.205:80')
     # Open connection
     ws.on 'open', ->
-      sails.log.info 'SUCCESS! Websocket Opened!'
+      sails.log.info 'SUCCESS! Websocket Opened for Marc :) !'
       ws.send 'CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership'
       ws.send 'PASS ' + auth
       ws.send 'NICK ' + nick
