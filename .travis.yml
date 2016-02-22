@@ -3,6 +3,9 @@ env:
   - MY_ENV_VAR=/home/stbk
   - MY_OTHER_VAR=$MY_ENV_VAR/hello/world.json
   - secure: "JjJay5DDU1JB0KM58KHvgld+G8+PEGYFR4r93yM5itf5u23otBiCck6iVV9GNRETzPOL3XCEz2MelGv3HRsoVxqoAN47VAZUZ3k2OVvt85HEzSNauWXNKQspt1x0+4u3JbTwGapjfpitlySkHEttAgaWzXEbEKkExpn3J4qOSrM6/FAF7jOGTzHoNWKBf30kZK8O/Qa1l1s63FD2WPF6P30UuOeQ39uMWuuDLxfzOanL7rQqXpBwU8zDp++iKE40C84mZ7raBIPcPN3qvkXL0BcBDrpnX4a0BqfWb5aKkLblv/UQRK5lV4hjIkA08Ti8vaUbr0Mps+6hmlRwN2ToWzIkUlC1KvBR+SLO53rsv9iKjH2M2UpUNiuvIcnvnJQAOvJqfbGLktvFzy6O3V6ho9PGQULY13eNg5PO4ht9WfIMkFBOogKqEGU4eUGfue5Zh0DGoKOXBYjqhlBHVXDXs4VxCGNhTnC5tPyPPHJ6rZ4mbGZ/eDp/BU+VHvnnjX72WgdSatWRRg3t4mW/nK06OaBdsb3/C1gNzigBGH0BQjdKEm6qQt2vrUIEbb/4iuFvW13GRUYvJdy0oZoRpT12w2PcMPD6dhOBKBhH0Y35A8PBxAbh8hKZ6oeKGzR6/zkAOHYba80dh5tcwbe+J5RynXfcJ97WwxJWL2j87edgq7o="
+  - DOCKER_EMAIL=marc.perrinpelletier@gmail.com
+  - DOCKER_USERNAME=marcpepe
+  - secure: "DpOlwdV7zbGCfgO0ZN/eruGO8ljegZw0Ez2+D2ns4jqgfAAH5A+IgJL15wlpE/jqgYRDQKCH6hPTBwxYX6ox8/YMpft1Kmwh/qTJs1E37fx9gP6m45d7q/o2Kk3ohPYjvLy7OfdYEiU5GKY7cq6kS4DddHmTScIUZ2JMMJNn4MWMFGRa/7ZeKfrlTveJ3ViGI7zS7h0Z1NTS4PGi3q+pytwNxrCEwwkt5JOZUDwbli7wTmAoFt0m8D6Qx50Vjrko7j03OXEYqJ+25QzTHKEx4SOfB4iTYp26GI9EWvbPDiDOE6AY6RP0WJH4bb+25nKwqHdLzrIEE/vZBfhLGH5oGsINwjUILSUdO4wlQN4S22uhnHBdIM7kPsA1b987xUCKvMOXX6LI9ZhT5/EwSbtY8BN86UzIlSKB+Tjpc/HexJlNsmdqcxUrbxDoHV0wFCE+mgGCM/24WDg02lVE9gofu+NMeTwTEPX8q5QXxVAnircOr1jhS6QRvZYILweQYyG/U+MCS1nskbjMtX71kuk51kdZUevA21TvkXxiNjQbDLXpryLwYafo+2UQuGiHVZ7xqZx4l0z6Zzfuy/79nAwr8ZqKfcSmx+93gPHlXv5gQGn2sjQtEmhUhxzvEGOAHGkG8h4lSEJDZRkdKm6Twy0a/lglBSnASmme2rGAosw6qzA="
 
 sudo: false
 
@@ -11,13 +14,16 @@ language: node_js
 node_js:
   - '4.2'
 
-# services:
+services:
+  - docker
   # - mongodb
 
 cache:
   directories:
     - node_modules
-    # - bower_components
+
+script:
+  - export COMMIT_SUBJECT="$(git log --format=%s --no-merges -n 1)"
 
 notifications:
   # webhooks:
@@ -47,8 +53,23 @@ notifications:
   # - sleep 15 #mongo may not be responded directly. See http://docs.travis-ci.com/user/database-setup/#MongoDB
   # - mongo --version
 
-after_success:
-  - "curl -H \"Content-Type: application/json\" --data '{\"source_type\": \"Branch\", \"source_name\": \"staging\"}' -X POST https://registry.hub.docker.com/u/marcpepe/streambacker-server-automated/trigger/$DOCKERHUB_WEBHOOK_TOKEN/"
+# after_success:
+  # - "curl -H \"Content-Type: application/json\" --data '{\"source_type\": \"Branch\", \"source_name\": \"staging\"}' -X POST https://registry.hub.docker.com/u/marcpepe/streambacker-server-automated/trigger/$DOCKERHUB_WEBHOOK_TOKEN/"
+  # - docker build -t marcpepe/streambacker-server:latest -t marcpepe/streambacker-server:0.0.2 .
+  # - docker push marcpepe/streambacker-server
+
+before_deploy:
+  - docker build -t marcpepe/streambacker-server:latest -t marcpepe/streambacker-server:0.0.2 .
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push marcpepe/streambacker-server
+  # - pip install --user awscli
+
+deploy:
+  provider: script
+  script: scripts/deploy.sh
+  on:
+    branch: staging
+    condition: "$COMMIT_SUBJECT != *\"[no deploy]\"*"
 
 script:
   - npm test
