@@ -59,13 +59,15 @@ notifications:
   # - docker push marcpepe/streambacker-server
 
 before_deploy:
-  - docker build -t marcpepe/streambacker-server:latest -t marcpepe/streambacker-server:0.0.2 .
+  - docker pull marcpepe/streambacker-server:latest
+  - docker build -t marcpepe/streambacker-server:latest .
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push marcpepe/streambacker-server
   # - pip install --user awscli
 
 deploy:
   provider: script
+  skip_cleanup: true
   script: scripts/deploy.sh
   on:
     branch: staging
