@@ -1,4 +1,4 @@
-# Project Streambacker (Build #13) [![Build Status](https://travis-ci.org/Marcpepe/streambacker.svg?branch=master)](https://travis-ci.org/Marcpepe/streambacker)
+# Project Streambacker (Build #13) [![Build Status](https://travis-ci.org/Marcpepe/streambacker.svg?branch=master)](https://travis-ci.org/Marcpepe/streambacker) [![Circle CI](https://circleci.com/gh/Marcpepe/streambacker.svg?style=svg)](https://circleci.com/gh/Marcpepe/streambacker)
 
 ## Develop with Docker
 
