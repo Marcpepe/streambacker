@@ -1,7 +1,7 @@
 prod-server:
-  image: marcpepe/streambacker-server-automated:latest
-  expose:
-    - 1337
+  image: marcpepe/streambacker-server:latest
+  # expose:
+    # - 1337
   links:
     - prod-database
 
@@ -12,7 +12,7 @@ prod-database:
 prod-proxy:
   image: marcpepe/streambacker-proxy-automated:latest
   ports:
-    - '80:5013'
+    - "80:5013"
   links:
     - prod-server
   volumes_from:

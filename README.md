@@ -36,3 +36,9 @@ Required :
 - Protractor (test runner: wrapper of Selenium)
 - Cucumber (framework de test)
 
+## AWS
+
+- `aws ecs create-cluster --cluster-name streambacker` (after having set access-key and secret-key as env variables)
+- `ecs-cli configure --region eu-central-1 --access-key xxxxxxxxxxx --secret-key xxxxxxxxxxxx --cluster streambacker`
+- `ecs-cli compose --file docker-compose.prod.yml up`
+
